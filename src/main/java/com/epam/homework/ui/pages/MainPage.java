@@ -1,13 +1,11 @@
 package com.epam.homework.ui.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.PageFactory;
 
-/**
- * Created by Al on 26.09.2016.
- */
-public class MainPage extends BasePage {
+public class MainPage extends AbstractBasePage {
     private static final By USERNAME_LOCATOR = By.xpath("//*[@id='PH_user-email']");
-
+    private static final By NEW_MAIL_BUTTON_LOCATOR = By.xpath("//div[@id='b-toolbar__left']//a[@data-name='compose']");
 
     public MainPage() {
         super();
@@ -18,8 +16,8 @@ public class MainPage extends BasePage {
         return message;
     }
 
-//    public ComposePage clickCompose(){
-//
-//
-//    }
+    public ComposePage clickCompose(){
+        driver.findElement(NEW_MAIL_BUTTON_LOCATOR).click();
+        return PageFactory.initElements(driver, ComposePage.class);
+    }
 }

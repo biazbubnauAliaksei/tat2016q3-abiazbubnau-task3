@@ -2,11 +2,7 @@ package com.epam.homework.ui.pages;
 
 import org.openqa.selenium.By;
 
-
-/**
- * Created by Al on 26.09.2016.
- */
-public class ErrorLoginPage extends BasePage {
+public class ErrorLoginPage extends AbstractBasePage {
     private static final By ERROR_MSG_LOCATOR = By.xpath("//*[@id='frame']/div[contains(@class, 'b-login__errors')]");
 
     public ErrorLoginPage() {
