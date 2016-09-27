@@ -1,5 +1,6 @@
 package com.epam.homework.ui.pages;
 
+import com.epam.homework.utility.FireFoxWebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -8,16 +9,15 @@ import org.openqa.selenium.support.PageFactory;
 /**
  * Created by Al on 26.09.2016.
  */
-public class LoginPage {
+public class LoginPage extends BasePage {
 
     private static final By LOGIN_INPUT_LOCATOR = By.xpath(".//input[@id='mailbox__login']");
     private static final By PASSWORD_INPUT_LOCATOR = By.xpath(".//input[@id='mailbox__password']");
     private static final By LOGIN_FORM_SUBMIT_BUTTON_LOCATOR = By.xpath(".//input[@id='mailbox__auth__button']");
 
-    private WebDriver driver;
 
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
+    public LoginPage() {
+        super();
     }
 
     public MainPage correctLogin(String login, String pass) {

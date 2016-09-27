@@ -7,8 +7,10 @@ import java.util.concurrent.TimeUnit;
  */
 public enum DriverTimeouts {
 
-    IMPLICIT_WAIT(10, TimeUnit.SECONDS),
-    PAGE_LOAD(60, TimeUnit.SECONDS);
+    IMPLICIT_WAIT(1, TimeUnit.SECONDS),
+    PAGE_LOAD(60, TimeUnit.SECONDS),
+    EXPLICIT_WAIT(10, TimeUnit.SECONDS);
+
 
     private int value;
     private TimeUnit unit;
