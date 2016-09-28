@@ -9,6 +9,7 @@ public class ComposePage extends AbstractBasePage {
     private static final By FIELD_SUBJECT_LOCATOR = By.xpath(".//input[@name='Subject']");
     private static final By FIELD_TEXT_LOCATOR = By.xpath(".//*[@id='tinymce']");
     private static final By SEND_EMAIL_LOCATOR = By.xpath(".//*[@id='b-toolbar__right']//div[@data-name='send']/span");
+
     public ComposePage() {
         super();
     }

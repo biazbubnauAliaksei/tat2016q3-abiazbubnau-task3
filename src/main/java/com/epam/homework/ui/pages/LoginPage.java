@@ -11,12 +11,12 @@ public class LoginPage extends AbstractBasePage {
 
     public LoginPage() {
         super();
-        waitForElement(LOGIN_INPUT_LOCATOR);
     }
 
     public LoginPage typeLogin(String login) {
         driver.findElement(LOGIN_INPUT_LOCATOR).sendKeys(login);
         return this;
+
     }
 
     public LoginPage typePassword(String pass) {

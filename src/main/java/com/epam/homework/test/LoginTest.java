@@ -24,7 +24,7 @@ public class LoginTest {
     private LoginPage loginPage;
     private LoginServiceImpl service;
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeMethod
     public void setUp() {
         driver = WebDriverFactory.getInstance();
         loginPage = new LoginPage();
@@ -32,7 +32,13 @@ public class LoginTest {
     }
 
     @AfterMethod
-    public void killDriver(){
+    public void tearDown() {
+        loginPage = null;
+        service = null;
+    }
+
+    @AfterClass
+    public void killDriver() {
         driver.quit();
     }
 

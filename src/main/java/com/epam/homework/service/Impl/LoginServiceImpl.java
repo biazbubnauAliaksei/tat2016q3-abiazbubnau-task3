@@ -10,27 +10,29 @@ import org.openqa.selenium.WebDriver;
 public class LoginServiceImpl implements LoginService {
     private WebDriver driver;
     private LoginPage loginPage;
+    private MainPage mainPage;
 
-    public LoginServiceImpl(LoginPage loginPage){
+    public LoginServiceImpl(LoginPage loginPage) {
         driver = WebDriverFactory.getInstance();
         this.loginPage = loginPage;
     }
 
     @Override
-    public void login(String login, String pass){
-        loginPage.typeLogin(login).typePassword(pass);
+    public void login(String login, String pass) {
+        mainPage = loginPage.typeLogin(login)
+                .typePassword(pass)
+                .submitLogin();
     }
 
     @Override
     public boolean isLoginSuccess() throws RuntimeException {
-        MainPage page = loginPage.submitLogin();
-        String title = page.getUsernameTitle();
-       if (!title.equals(Constants.EMAIL_LOGIN)){
-           String message = getErrorMessage();
-           throw new RuntimeException(message);
-       } else {
-           return true;
-       }
+        String title = mainPage.getUsernameTitle();
+        if (!title.equals(Constants.EMAIL_LOGIN)) {
+            String message = getErrorMessage();
+            throw new RuntimeException(message);
+        } else {
+            return true;
+        }
     }
 
     private String getErrorMessage() {
