@@ -16,7 +16,8 @@ public abstract class AbstractBasePage {
         this.driver = WebDriverFactory.getInstance();
     }
 
-    protected WebElement waitForElement(By locator){
-        return new WebDriverWait(driver, EXPLICIT_WAIT.getValue()).until(ExpectedConditions.visibilityOfElementLocated(locator));
+    protected WebElement waitForElement(By locator) {
+        return new WebDriverWait(driver, EXPLICIT_WAIT.getValue())
+                .until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 }

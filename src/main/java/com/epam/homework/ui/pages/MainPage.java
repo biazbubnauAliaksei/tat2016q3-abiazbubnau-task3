@@ -17,12 +17,12 @@ public class MainPage extends AbstractBasePage {
         return message;
     }
 
-    public ComposePage clickCompose(){
+    public ComposePage clickCompose() {
         driver.findElement(NEW_MAIL_BUTTON_LOCATOR).click();
         return PageFactory.initElements(driver, ComposePage.class);
     }
 
-    public MainPage clickSent(){
+    public MainPage clickSent() {
         driver.findElement(SENT_LINK_LOCATOR).click();
         return PageFactory.initElements(driver, MainPage.class);
     }

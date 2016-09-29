@@ -15,7 +15,6 @@ public enum DriverTimeouts {
     private int value;
     private TimeUnit unit;
 
-
     DriverTimeouts(int value, TimeUnit unit) {
         this.value = value;
         this.unit = unit;

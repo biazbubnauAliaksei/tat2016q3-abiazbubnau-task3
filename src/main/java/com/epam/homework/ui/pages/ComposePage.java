@@ -8,6 +8,7 @@ public class ComposePage extends AbstractBasePage {
     private static final By FIELD_ADDRESS_LOCATOR = By.xpath(".//textarea[@data-original-name='To']");
     private static final By FIELD_SUBJECT_LOCATOR = By.xpath(".//input[@name='Subject']");
     private static final By FIELD_TEXT_LOCATOR = By.xpath(".//*[@id='tinymce']");
+    private static final By FRAME_TEXT_LOCATOR = By.xpath("//iframe[@id='compose_896_composeEditor_ifr']");
     private static final By SEND_EMAIL_LOCATOR = By.xpath(".//*[@id='b-toolbar__right']//div[@data-name='send']/span");
 
     public ComposePage() {
@@ -29,11 +30,12 @@ public class ComposePage extends AbstractBasePage {
     }
 
     public ComposePage typeBody(String content) {
+        driver.switchTo().frame(driver.findElement(FRAME_TEXT_LOCATOR));
         driver.findElement(FIELD_TEXT_LOCATOR).sendKeys(content);
         return this;
     }
 
-    public MainPage sendMessage(){
+    public MainPage sendMessage() {
         driver.findElement(SEND_EMAIL_LOCATOR).submit();
         return PageFactory.initElements(driver, MainPage.class);
     }

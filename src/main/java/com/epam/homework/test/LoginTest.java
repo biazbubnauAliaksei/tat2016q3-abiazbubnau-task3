@@ -1,13 +1,10 @@
 package com.epam.homework.test;
 
-import com.epam.homework.service.ifaces.LoginService;
+import com.epam.homework.beans.User;
 import com.epam.homework.service.impl.LoginServiceImpl;
-import com.epam.homework.ui.pages.LoginPage;
 import com.epam.homework.utility.WebDriverFactory;
-import org.junit.AfterClass;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -21,24 +18,16 @@ public class LoginTest {
             "Неверное имя пользователя или пароль. Проверьте правильность введенных данных.";
 
     private WebDriver driver;
-    private LoginPage loginPage;
     private LoginServiceImpl service;
 
     @BeforeMethod
     public void setUp() {
         driver = WebDriverFactory.getInstance();
-        loginPage = new LoginPage();
-        service = new LoginServiceImpl(loginPage);
+        service = new LoginServiceImpl(driver);
     }
 
     @AfterMethod
     public void tearDown() {
-        loginPage = null;
-        service = null;
-    }
-
-    @AfterClass
-    public void killDriver() {
         driver.quit();
     }
 
@@ -54,8 +43,9 @@ public class LoginTest {
         service.isLoginSuccess();
     }
 
-    private void doLogin(String login, String pass){
+    private void doLogin(String login, String pass) {
         driver.get(Constants.MAILRU_URL);
-        service.login(login, pass);
+        User user = new User(login, pass);
+        service.login(user);
     }
 }

@@ -1,10 +1,10 @@
 package com.epam.homework.service.impl;
 
+import com.epam.homework.beans.User;
 import com.epam.homework.constants.Constants;
 import com.epam.homework.service.ifaces.LoginService;
 import com.epam.homework.ui.pages.LoginPage;
 import com.epam.homework.ui.pages.MainPage;
-import com.epam.homework.utility.WebDriverFactory;
 import org.openqa.selenium.WebDriver;
 
 public class LoginServiceImpl implements LoginService {
@@ -12,15 +12,15 @@ public class LoginServiceImpl implements LoginService {
     private LoginPage loginPage;
     private MainPage mainPage;
 
-    public LoginServiceImpl(LoginPage loginPage) {
-        driver = WebDriverFactory.getInstance();
-        this.loginPage = loginPage;
+    public LoginServiceImpl(WebDriver driver) {
+        this.loginPage = new LoginPage();
+        this.driver = driver;
     }
 
     @Override
-    public void login(String login, String pass) {
-        mainPage = loginPage.typeLogin(login)
-                .typePassword(pass)
+    public void login(User user) {
+        mainPage = loginPage.typeLogin(user.getEmail())
+                .typePassword(user.getPassword())
                 .submitLogin();
     }
 
