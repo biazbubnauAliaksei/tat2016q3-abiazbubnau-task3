@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Message {
-    String email;
-    String subject;
-    String body;
+    private final String email;
+    private final String subject;
+    private final String body;
 }

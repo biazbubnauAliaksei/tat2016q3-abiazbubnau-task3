@@ -5,6 +5,7 @@ import com.epam.homework.constants.Constants;
 import com.epam.homework.service.ifaces.LoginService;
 import com.epam.homework.ui.pages.LoginPage;
 import com.epam.homework.ui.pages.MainPage;
+import com.epam.homework.utility.WebDriverFactory;
 import org.openqa.selenium.WebDriver;
 
 public class LoginServiceImpl implements LoginService {
@@ -12,13 +13,14 @@ public class LoginServiceImpl implements LoginService {
     private LoginPage loginPage;
     private MainPage mainPage;
 
-    public LoginServiceImpl(WebDriver driver) {
+    public LoginServiceImpl() {
         this.loginPage = new LoginPage();
-        this.driver = driver;
+        this.driver = WebDriverFactory.getInstance();
     }
 
     @Override
     public void login(User user) {
+        driver.get(Constants.MAILRU_URL);
         mainPage = loginPage.typeLogin(user.getEmail())
                 .typePassword(user.getPassword())
                 .submitLogin();

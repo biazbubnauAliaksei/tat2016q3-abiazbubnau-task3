@@ -18,8 +18,7 @@ public class BaseMailruLoginTest {
     @Test
     public void loginToMail() {
         driver = WebDriverFactory.getInstance();
-        LoginService service = new LoginServiceImpl(driver);
-        driver.get(Constants.MAILRU_URL);
+        LoginService service = new LoginServiceImpl();
         User user = new User(Constants.EMAIL_LOGIN, Constants.CORRECT_PASS);
         service.login(user);
         assertTrue(service.isLoginSuccess());

@@ -26,12 +26,12 @@ public class SendAndSearchEmailTest {
     @BeforeMethod
     public void setUp() {
         service = new MailServiceImpl();
+        driver = WebDriverFactory.getInstance();
     }
 
     @Test
     public void loginToMail() {
-        driver = WebDriverFactory.getInstance();
-        LoginService loginService = new LoginServiceImpl(driver);
+        LoginService loginService = new LoginServiceImpl();
         driver.get(Constants.MAILRU_URL);
         User user = new User(Constants.EMAIL_LOGIN, Constants.CORRECT_PASS);
         loginService.login(user);
@@ -47,12 +47,14 @@ public class SendAndSearchEmailTest {
 
     private String generateText() {
         Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("Hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         return sdf.format(date);
     }
 
     @Test(dependsOnMethods = "loginToMail")
     public void sendMailNotFilledAddress() {
+        Message message = new Message(EMPTY, EMPTY, EMPTY);
+        service.sendMessage(message);
 
     }
 

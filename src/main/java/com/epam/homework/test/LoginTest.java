@@ -4,7 +4,7 @@ import com.epam.homework.beans.User;
 import com.epam.homework.service.impl.LoginServiceImpl;
 import com.epam.homework.utility.WebDriverFactory;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -17,18 +17,11 @@ public class LoginTest {
     private static final String INVALID_PASSWORD_MESSAGE =
             "Неверное имя пользователя или пароль. Проверьте правильность введенных данных.";
 
-    private WebDriver driver;
     private LoginServiceImpl service;
 
     @BeforeMethod
     public void setUp() {
-        driver = WebDriverFactory.getInstance();
-        service = new LoginServiceImpl(driver);
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        driver.quit();
+        service = new LoginServiceImpl();
     }
 
     @Test
@@ -44,7 +37,6 @@ public class LoginTest {
     }
 
     private void doLogin(String login, String pass) {
-        driver.get(Constants.MAILRU_URL);
         User user = new User(login, pass);
         service.login(user);
     }
