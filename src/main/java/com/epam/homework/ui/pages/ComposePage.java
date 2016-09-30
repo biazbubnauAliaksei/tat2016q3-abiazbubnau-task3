@@ -30,16 +30,14 @@ public class ComposePage extends AbstractBasePage {
     }
 
     public ComposePage typeBody(String content) {
-        driver.switchTo()
-                .frame(driver.findElement(FRAME_TEXT_LOCATOR))
-                .findElement(FIELD_TEXT_LOCATOR)
-                .sendKeys(content);
+        driver.switchTo().frame(driver.findElement(FRAME_TEXT_LOCATOR));
+        driver.findElement(FIELD_TEXT_LOCATOR).sendKeys(content);
         driver.switchTo().defaultContent();
         return this;
     }
 
     public MainPage sendMessage() {
-        driver.findElement(SEND_EMAIL_LOCATOR).submit();
+        driver.findElement(SEND_EMAIL_LOCATOR).click();
         return PageFactory.initElements(driver, MainPage.class);
     }
 }

@@ -2,6 +2,7 @@ package com.epam.homework.service.impl;
 
 import com.epam.homework.beans.User;
 import com.epam.homework.constants.Constants;
+import com.epam.homework.exception.AuthorizationException;
 import com.epam.homework.service.ifaces.LoginService;
 import com.epam.homework.ui.pages.LoginPage;
 import com.epam.homework.ui.pages.MainPage;
@@ -27,7 +28,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public boolean isLoginSuccess() throws RuntimeException {
+    public boolean isLoginSuccess() throws AuthorizationException {
         String title = mainPage.getUsernameTitle();
         if (!title.equals(Constants.EMAIL_LOGIN)) {
             String message = getErrorMessage();

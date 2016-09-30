@@ -8,5 +8,4 @@ public interface MailService {
 
     boolean isMessageSent(Message message);
 
-    boolean isMessageRecieved(Message message);
 }

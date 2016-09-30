@@ -19,7 +19,7 @@ public final class WebDriverFactory {
 
     public static WebDriver getInstance() {
         if (driver == null) {
-            driver = getMozillaDriver();
+            driver = getChromeDriver();
             return driver;
         }
         return driver;

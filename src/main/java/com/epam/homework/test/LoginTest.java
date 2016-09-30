@@ -2,9 +2,6 @@ package com.epam.homework.test;
 
 import com.epam.homework.beans.User;
 import com.epam.homework.service.impl.LoginServiceImpl;
-import com.epam.homework.utility.WebDriverFactory;
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

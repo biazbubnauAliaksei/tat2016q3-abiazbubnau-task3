@@ -8,10 +8,8 @@ import com.epam.homework.utility.WebDriverFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-/**
- * Created by Al on 28.09.2016.
- */
 public class MailServiceImpl implements MailService {
+    private static final int INDEX_1 = 1;
     ComposePage composePage;
     MainPage mainPage;
     WebDriver driver;
@@ -19,16 +17,12 @@ public class MailServiceImpl implements MailService {
     public MailServiceImpl() {
         this.composePage = new ComposePage();
         driver = WebDriverFactory.getInstance();
-    }
-
-    private void clickCompose() {
         mainPage = PageFactory.initElements(driver, MainPage.class);
-        mainPage.clickCompose();
     }
 
     @Override
     public void sendMessage(Message message) {
-        clickCompose();
+        mainPage.clickCompose();
         composePage.typeEmail(message.getEmail())
                 .typeSubject(message.getSubject())
                 .typeBody(message.getBody())
@@ -37,16 +31,21 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public boolean isMessageSent(Message message) {
-        return false;
+        return isMessageInInbox(message) && isMessageInSent(message);
     }
 
-    @Override
-    public boolean isMessageRecieved(Message message) {
-        return false;
+    private boolean isMessageInInbox(Message message) {
+        mainPage.clickInbox();
+        return isLastMessageTarget(message);
     }
 
-    public boolean isMessageInInbox(Message message) {
+    private boolean isMessageInSent(Message message) {
+        mainPage.clickSent();
+        return isLastMessageTarget(message);
+    }
 
-        return false;
+    private boolean isLastMessageTarget(Message message) {
+        Message target = mainPage.getMessage(INDEX_1);
+        return message.getEmail().equals(target.getEmail()) && message.getSubject().equals(target.getSubject());
     }
 }
