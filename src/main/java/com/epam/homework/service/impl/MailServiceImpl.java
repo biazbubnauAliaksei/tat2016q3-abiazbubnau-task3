@@ -31,7 +31,7 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public boolean isMessageSent(Message message) {
-        return isMessageInInbox(message) && isMessageInSent(message);
+        return isMessageInInbox(message);
     }
 
     private boolean isMessageInInbox(Message message) {

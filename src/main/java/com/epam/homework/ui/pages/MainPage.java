@@ -10,7 +10,7 @@ public class MainPage extends AbstractBasePage {
             By.xpath("//div[@id='b-toolbar__left']//a[@data-name='compose']/span");
     private static final By SENT_LINK_LOCATOR = By.xpath(".//div[@data-id='500000']/a");
     private static final String CONCRETE_MESSAGE_LOCATOR_PATTERN =
-            ".//div[contains(@class,'b-datalist__body')]/div[%s]//a";
+            ".//div[contains(@class,'b-datalist__body')]/div[%s]//a//div[contains(@class, 'b-datalist__item__panel')]";
     private static final By INBOX_LINK_LOCATOR = By.xpath("//div[@data-id='0']/a");
     private static final By MAIL_SUBJECT_LOCATOR = By.xpath("//*[contains(@class, 'b-letter__head__subj__text')]");
     private static final By MAIL_EMAIL_LOCATOR = By.xpath("//*[contains(@class, 'b-letter__head__addrs__from')]/span");
@@ -44,7 +44,8 @@ public class MainPage extends AbstractBasePage {
     public Message getMessage(int index) {
         String target = String.format(CONCRETE_MESSAGE_LOCATOR_PATTERN, index);
         By locator = By.xpath(target);
-        waitForElement(locator).click();
+
+        driver.findElement(locator).click();
         String email = driver.findElement(MAIL_EMAIL_LOCATOR).getAttribute(EMAIL_ATTR);
         String subject = driver.findElement(MAIL_SUBJECT_LOCATOR).getText();
         String body = driver.findElement(MAIL_TEXT_LOCATOR).getText();
