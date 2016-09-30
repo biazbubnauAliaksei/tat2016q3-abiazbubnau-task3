@@ -1,4 +1,4 @@
-package com.epam.homework.utility;
+package com.epam.homework.product.utility;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,8 +8,8 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static com.epam.homework.enums.DriverTimeouts.IMPLICIT_WAIT;
-import static com.epam.homework.enums.DriverTimeouts.PAGE_LOAD;
+import static com.epam.homework.product.enums.DriverTimeouts.IMPLICIT_WAIT;
+import static com.epam.homework.product.enums.DriverTimeouts.PAGE_LOAD;
 
 public final class WebDriverFactory {
     private static volatile WebDriver driver;

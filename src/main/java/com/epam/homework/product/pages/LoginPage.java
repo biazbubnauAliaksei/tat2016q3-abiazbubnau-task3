@@ -1,4 +1,4 @@
-package com.epam.homework.ui.pages;
+package com.epam.homework.product.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
@@ -10,7 +10,6 @@ public class LoginPage extends AbstractBasePage {
     private static final By LOGIN_FORM_SUBMIT_BUTTON_LOCATOR = By.xpath(".//input[@id='mailbox__auth__button']");
 
     public LoginPage() {
-        super();
     }
 
     public LoginPage typeLogin(String login) {

@@ -1,4 +1,4 @@
-package com.epam.homework.enums;
+package com.epam.homework.product.enums;
 
 import java.util.concurrent.TimeUnit;
 

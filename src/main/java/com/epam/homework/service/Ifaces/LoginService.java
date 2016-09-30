@@ -1,6 +1,6 @@
 package com.epam.homework.service.ifaces;
 
-import com.epam.homework.beans.User;
+import com.epam.homework.product.beans.User;
 
 public interface LoginService {
 

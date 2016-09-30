@@ -1,4 +1,4 @@
-package com.epam.homework.constants;
+package com.epam.homework.product.utility.constants;
 
 import org.openqa.selenium.By;
 
@@ -11,4 +11,5 @@ public class Constants {
     public static final String CORRECT_PASS = "pass000";
     public static final By ERROR_MSG_LOCATOR = By.xpath("//*[@id='frame']/div[contains(@class, 'b-login__errors')]");
 
+    public static final String EMPTY = "";
 }

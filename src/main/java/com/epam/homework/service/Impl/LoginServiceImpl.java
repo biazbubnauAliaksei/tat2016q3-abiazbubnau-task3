@@ -1,12 +1,12 @@
 package com.epam.homework.service.impl;
 
-import com.epam.homework.beans.User;
-import com.epam.homework.constants.Constants;
-import com.epam.homework.exception.AuthorizationException;
+import com.epam.homework.product.beans.User;
+import com.epam.homework.product.utility.constants.Constants;
+import com.epam.homework.product.utility.exception.AuthorizationException;
 import com.epam.homework.service.ifaces.LoginService;
-import com.epam.homework.ui.pages.LoginPage;
-import com.epam.homework.ui.pages.MainPage;
-import com.epam.homework.utility.WebDriverFactory;
+import com.epam.homework.product.pages.LoginPage;
+import com.epam.homework.product.pages.MainPage;
+import com.epam.homework.product.utility.WebDriverFactory;
 import org.openqa.selenium.WebDriver;
 
 public class LoginServiceImpl implements LoginService {
@@ -42,4 +42,5 @@ public class LoginServiceImpl implements LoginService {
         String message = driver.findElement(Constants.ERROR_MSG_LOCATOR).getText().trim();
         return message;
     }
+
 }

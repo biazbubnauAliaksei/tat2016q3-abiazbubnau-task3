@@ -1,4 +1,4 @@
-package com.epam.homework.exception;
+package com.epam.homework.product.utility.exception;
 
 /**
  * Created by Al on 29.09.2016.

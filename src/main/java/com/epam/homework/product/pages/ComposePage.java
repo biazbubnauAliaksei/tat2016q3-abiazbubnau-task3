@@ -1,4 +1,4 @@
-package com.epam.homework.ui.pages;
+package com.epam.homework.product.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,9 +10,9 @@ public class ComposePage extends AbstractBasePage {
     private static final By FIELD_TEXT_LOCATOR = By.xpath(".//*[@id='tinymce']");
     private static final By FRAME_TEXT_LOCATOR = By.xpath("//iframe[contains(@id ,'composeEditor_ifr')]");
     private static final By SEND_EMAIL_LOCATOR = By.xpath("//*[@id='b-toolbar__right']//div[@data-name='send']/span");
+    private static final By SAVE_EMAIL_LOCATOR = By.xpath("//div[@data-name='saveDraft']/span");
 
     public ComposePage() {
-        super();
     }
 
     public ComposePage(WebDriver driver) {
@@ -38,6 +38,11 @@ public class ComposePage extends AbstractBasePage {
 
     public MainPage sendMessage() {
         driver.findElement(SEND_EMAIL_LOCATOR).click();
+        return PageFactory.initElements(driver, MainPage.class);
+    }
+
+    public MainPage clickSave() {
+        driver.findElement(SAVE_EMAIL_LOCATOR).click();
         return PageFactory.initElements(driver, MainPage.class);
     }
 }
