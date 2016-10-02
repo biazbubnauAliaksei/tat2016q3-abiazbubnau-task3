@@ -1,25 +1,25 @@
 package com.epam.homework.test;
 
-import static org.junit.Assert.assertTrue;
-
 import com.epam.homework.framework.Browser;
 import com.epam.homework.product.beans.Message;
 import com.epam.homework.product.beans.User;
-import com.epam.homework.service.ifaces.LoginService;
-import com.epam.homework.service.ifaces.MailService;
+import com.epam.homework.product.utility.constants.Constants;
+import com.epam.homework.service.iface.LoginService;
+import com.epam.homework.service.iface.MailService;
 import com.epam.homework.service.impl.LoginServiceImpl;
 import com.epam.homework.service.impl.MailServiceImpl;
-import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import com.epam.homework.product.utility.constants.Constants;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static org.junit.Assert.assertTrue;
+
 public class SendEmailTest {
 
-    MailService service;
+    private static final String ADDRESS_ERROR_MESSAGE = "Не указан адрес получателя";
+    private MailService service;
     private Browser browser;
 
     @BeforeMethod
@@ -28,7 +28,7 @@ public class SendEmailTest {
         service = new MailServiceImpl();
     }
 
-    @AfterMethod
+    @AfterClass
     public void tearDown() {
         browser.close();
     }
@@ -53,14 +53,14 @@ public class SendEmailTest {
     public void sendMailWithAddressNoSubjectNoBody() {
         Message message = new Message(Constants.EMAIL_LOGIN, Constants.EMPTY, Constants.EMPTY);
         service.sendMessage(message);
-        assertTrue("Message should be sent. Not all fields are not necessary.", service.isMessageSent(message));
+        assertTrue("Message should be sent. Not all fields are necessary.", service.isMessageSent(message));
     }
 
-    @Test(dependsOnMethods = "loginToMail", description = "Inability of sending message without email address.")
+    @Test(dependsOnMethods = "loginToMail", description = "Inability of sending message without email address.",
+            expectedExceptions = RuntimeException.class, expectedExceptionsMessageRegExp = ADDRESS_ERROR_MESSAGE)
     public void sendMailNotFilledAddress() {
         Message message = new Message(Constants.EMPTY, Constants.EMPTY, Constants.EMPTY);
-        service.sendMessage(message);
-        assertTrue("Message should not be sent, Alert appears when sending error occurs.", service.isAlertPresents());
+        service.sendIncorrectMessage(message);
     }
 
     public static String generateText() {

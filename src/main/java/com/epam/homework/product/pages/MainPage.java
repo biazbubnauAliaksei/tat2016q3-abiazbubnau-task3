@@ -8,13 +8,11 @@ public class MainPage extends AbstractBasePage {
     private static final By USERNAME_LOCATOR = By.xpath("//*[@id='PH_user-email']");
     private static final By NEW_MAIL_BUTTON_LOCATOR =
             By.xpath("//div[@id='b-toolbar__left']//a[@data-name='compose']/span");
-
     private static final By SENT_LINK_LOCATOR =
             By.xpath("//div[@data-mnemo='nav-folders']//a[@href='/messages/sent/']");
     private static final String CONCRETE_MESSAGE_LOCATOR_PATTERN =
             ".//div[contains(@class,'b-datalist__body')]/div[%s]//a";
-    private static final By INBOX_LINK_LOCATOR =
-            By.xpath("//div[@data-mnemo='nav-folders']//a[@href='/messages/inbox/']");
+    private static final By INBOX_LINK_LOCATOR = By.xpath("//span[contains(@class, 'b-nav__item__text b-nav__item__text_unread')]");
     private static final By DRAFT_LINK_LOCATOR =
             By.xpath("//div[@data-mnemo='nav-folders']//a[@href='/messages/drafts/']");
     private static final By TRASH_LINK_LOCATOR =
@@ -31,51 +29,53 @@ public class MainPage extends AbstractBasePage {
     }
 
     public String getUsernameTitle() {
-        String message = driver.findElement(USERNAME_LOCATOR).getText().trim();
+        String message = browser.findElement(USERNAME_LOCATOR).getText().trim();
         return message;
     }
 
     public ComposePage clickCompose() {
-        waitForElement(NEW_MAIL_BUTTON_LOCATOR).click();
-        return PageFactory.initElements(driver, ComposePage.class);
+        browser.clickElement(NEW_MAIL_BUTTON_LOCATOR);
+        return PageFactory.initElements(browser.getWrappedDriver(), ComposePage.class);
     }
 
     public MainPage clickSent() {
-        waitForElement(SENT_LINK_LOCATOR).click();
+        browser.waitForElementIsPresent(SENT_LINK_LOCATOR);
+        browser.clickElement(SENT_LINK_LOCATOR);
         return this;
     }
 
     public MainPage clickInbox() {
-        waitForElement(INBOX_LINK_LOCATOR).click();
+        browser.waitForElementIsPresent(INBOX_LINK_LOCATOR);
+        browser.clickElement(INBOX_LINK_LOCATOR);
         return this;
     }
 
     public MainPage clickTrash() {
-        waitForElement(TRASH_LINK_LOCATOR).click();
+        browser.clickElement(TRASH_LINK_LOCATOR);
         return this;
     }
 
     public MainPage clickDraft() {
-        waitForElement(DRAFT_LINK_LOCATOR).click();
+        browser.clickElement(DRAFT_LINK_LOCATOR);
         return this;
     }
 
     public MainPage clickDelete() {
-        driver.findElement(DELETE_EMAIL_LOCATOR).click();
+        browser.clickElement(DELETE_EMAIL_LOCATOR);
         return this;
     }
 
     public void markMessage(int index) {
         By locator = makeMessageLocator(CONCRETE_MAIL_CHECKBOX_LOCATOR_PATTERN, index);
-        driver.findElement(locator).click();
+        browser.clickElement(locator);
     }
 
     public Message getMessage(int index) {
         By locator = makeMessageLocator(CONCRETE_MESSAGE_LOCATOR_PATTERN, index);
-        waitForElement(locator).click();
-        String email = driver.findElement(MAIL_EMAIL_LOCATOR).getAttribute(EMAIL_ATTR);
-        String subject = driver.findElement(MAIL_SUBJECT_LOCATOR).getText();
-        String body = driver.findElement(MAIL_TEXT_LOCATOR).getText();
+        browser.clickElement(locator);
+        String email = browser.findElement(MAIL_EMAIL_LOCATOR).getAttribute(EMAIL_ATTR);
+        String subject = browser.findElement(MAIL_SUBJECT_LOCATOR).getText();
+        String body = browser.findElement(MAIL_TEXT_LOCATOR).getText();
         return new Message(email, subject, body);
     }
 

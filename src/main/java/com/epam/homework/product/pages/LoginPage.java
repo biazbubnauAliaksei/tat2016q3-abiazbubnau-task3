@@ -13,18 +13,18 @@ public class LoginPage extends AbstractBasePage {
     }
 
     public LoginPage typeLogin(String login) {
-        driver.findElement(LOGIN_INPUT_LOCATOR).sendKeys(login);
+        browser.findElement(LOGIN_INPUT_LOCATOR).sendKeys(login);
         return this;
 
     }
 
     public LoginPage typePassword(String pass) {
-        driver.findElement(PASSWORD_INPUT_LOCATOR).sendKeys(pass);
+        browser.findElement(PASSWORD_INPUT_LOCATOR).sendKeys(pass);
         return this;
     }
 
     public MainPage submitLogin() {
-        driver.findElement(LOGIN_FORM_SUBMIT_BUTTON_LOCATOR).click();
-        return PageFactory.initElements(driver, MainPage.class);
+        browser.clickElement(LOGIN_FORM_SUBMIT_BUTTON_LOCATOR);
+        return PageFactory.initElements(browser.getWrappedDriver(), MainPage.class);
     }
 }

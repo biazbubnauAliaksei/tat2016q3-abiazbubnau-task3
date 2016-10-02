@@ -1,41 +1,57 @@
 package com.epam.homework.service.impl;
 
+import com.epam.homework.framework.Browser;
 import com.epam.homework.product.beans.Message;
-import com.epam.homework.product.utility.exception.MessageSentException;
-import com.epam.homework.service.ifaces.MailService;
+import com.epam.homework.product.utility.constants.Constants;
+import com.epam.homework.service.iface.MailService;
 import com.epam.homework.product.pages.ComposePage;
 import com.epam.homework.product.pages.MainPage;
-import com.epam.homework.product.utility.WebDriverFactory;
-import org.openqa.selenium.WebDriver;
+import org.eclipse.jetty.io.RuntimeIOException;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.alertIsPresent;
 
 public class MailServiceImpl implements MailService {
     private static final int INDEX_1 = 1;
     private ComposePage composePage;
     private MainPage mainPage;
-    private WebDriver driver;
+    private Browser browser;
 
     public MailServiceImpl() {
         this.composePage = new ComposePage();
-        driver = WebDriverFactory.getInstance();
-        mainPage = PageFactory.initElements(driver, MainPage.class);
+        browser = Browser.getBrowser();
+        mainPage = PageFactory.initElements(browser.getWrappedDriver(), MainPage.class);
     }
 
     @Override
-    public void sendMessage(Message message) throws MessageSentException {
+    public void sendMessage(Message message) {
         mainPage.clickCompose();
         composePage.typeEmail(message.getEmail())
                 .typeSubject(message.getSubject())
                 .typeBody(message.getBody())
-                .sendMessage();
-        if (isAlertPresents()) {
-            driver.switchTo().alert().accept();
+               .sendMessage();
+        if (message.getBody() == Constants.EMPTY) {
+           Alert alert = (new WebDriverWait(browser.getWrappedDriver(), Browser.ELEMENT_WAIT_TIMEOUT_SECONDS))
+                    .until(alertIsPresent());
+            alert.accept();
         }
     }
 
     @Override
+    public void sendIncorrectMessage(Message message) throws RuntimeException {
+        mainPage.clickCompose();
+        sendMessage(message);
+        Alert alert = browser.getWrappedDriver().switchTo().alert();
+        String text = alert.getText();
+        alert.accept();
+        throw new RuntimeIOException(text);
+    }
+
+    @Override
     public boolean isMessageSent(Message message) {
-        return !isAlertPresents() && isMessageInInbox(message) && isMessageInSent(message);
+        return isMessageInSent(message) && isMessageInInbox(message);
     }
 
     @Override
@@ -48,16 +64,6 @@ public class MailServiceImpl implements MailService {
         mainPage.getMessage(INDEX_1);
         mainPage.markMessage(INDEX_1);
         mainPage.clickDelete();
-    }
-
-    @Override
-    public boolean isAlertPresents() {
-        try {
-            driver.switchTo().alert();
-            return true;
-        } catch (MessageSentException e) {
-            return false;
-        }
     }
 
     @Override

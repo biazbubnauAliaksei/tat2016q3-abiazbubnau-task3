@@ -18,10 +18,7 @@ public final class WebDriverFactory {
     }
 
     public static WebDriver getInstance() {
-        if (driver == null) {
-            driver = getChromeDriver();
-            return driver;
-        }
+        driver = getChromeDriver();
         return driver;
     }
 

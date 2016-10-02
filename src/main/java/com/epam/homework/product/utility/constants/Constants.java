@@ -10,6 +10,5 @@ public class Constants {
     public static final String EMAIL_LOGIN = "tat2016al@mail.ru";
     public static final String CORRECT_PASS = "pass000";
     public static final By ERROR_MSG_LOCATOR = By.xpath("//*[@id='frame']/div[contains(@class, 'b-login__errors')]");
-
     public static final String EMPTY = "";
 }

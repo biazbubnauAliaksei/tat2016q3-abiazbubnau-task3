@@ -74,4 +74,14 @@ public final class Browser implements WrapsDriver {
         WebDriverWait wait = new WebDriverWait(driver, ELEMENT_WAIT_TIMEOUT_SECONDS);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
     }
+
+    public void waitForElementIsClickable(By by) {
+            WebDriverWait wait = new WebDriverWait(driver, ELEMENT_WAIT_TIMEOUT_SECONDS);
+            wait.until(ExpectedConditions.elementToBeClickable(by));
+    }
+
+    public void clickElement(By by) {
+        WebElement element = findElement(by);
+        element.click();
+    }
 }

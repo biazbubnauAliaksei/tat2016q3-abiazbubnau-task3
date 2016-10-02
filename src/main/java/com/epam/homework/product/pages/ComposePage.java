@@ -1,7 +1,6 @@
 package com.epam.homework.product.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 public class ComposePage extends AbstractBasePage {
@@ -15,34 +14,30 @@ public class ComposePage extends AbstractBasePage {
     public ComposePage() {
     }
 
-    public ComposePage(WebDriver driver) {
-        this.driver = driver;
-    }
-
     public ComposePage typeEmail(String email) {
-        driver.findElement(FIELD_ADDRESS_LOCATOR).sendKeys(email);
+        browser.findElement(FIELD_ADDRESS_LOCATOR).sendKeys(email);
         return this;
     }
 
     public ComposePage typeSubject(String subject) {
-        driver.findElement(FIELD_SUBJECT_LOCATOR).sendKeys(subject);
+        browser.findElement(FIELD_SUBJECT_LOCATOR).sendKeys(subject);
         return this;
     }
 
     public ComposePage typeBody(String content) {
-        driver.switchTo().frame(driver.findElement(FRAME_TEXT_LOCATOR));
-        driver.findElement(FIELD_TEXT_LOCATOR).sendKeys(content);
-        driver.switchTo().defaultContent();
+        browser.getWrappedDriver().switchTo().frame(browser.findElement(FRAME_TEXT_LOCATOR));
+        browser.findElement(FIELD_TEXT_LOCATOR).sendKeys(content);
+        browser.getWrappedDriver().switchTo().defaultContent();
         return this;
     }
 
     public MainPage sendMessage() {
-        driver.findElement(SEND_EMAIL_LOCATOR).click();
-        return PageFactory.initElements(driver, MainPage.class);
+        browser.findElement(SEND_EMAIL_LOCATOR).click();
+        return PageFactory.initElements(browser.getWrappedDriver(), MainPage.class);
     }
 
     public MainPage clickSave() {
-        driver.findElement(SAVE_EMAIL_LOCATOR).click();
-        return PageFactory.initElements(driver, MainPage.class);
+        browser.findElement(SAVE_EMAIL_LOCATOR).click();
+        return PageFactory.initElements(browser.getWrappedDriver(), MainPage.class);
     }
 }

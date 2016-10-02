@@ -9,7 +9,7 @@ public class ErrorLoginPage extends AbstractBasePage {
     }
 
     public String getErrorMessage() {
-        String message = driver.findElement(ERROR_MSG_LOCATOR).getText().trim();
+        String message = browser.findElement(ERROR_MSG_LOCATOR).getText().trim();
         return message;
     }
 }

@@ -1,27 +1,26 @@
 package com.epam.homework.service.impl;
 
+import com.epam.homework.framework.Browser;
 import com.epam.homework.product.beans.User;
 import com.epam.homework.product.utility.constants.Constants;
 import com.epam.homework.product.utility.exception.AuthorizationException;
-import com.epam.homework.service.ifaces.LoginService;
+import com.epam.homework.service.iface.LoginService;
 import com.epam.homework.product.pages.LoginPage;
 import com.epam.homework.product.pages.MainPage;
-import com.epam.homework.product.utility.WebDriverFactory;
-import org.openqa.selenium.WebDriver;
 
 public class LoginServiceImpl implements LoginService {
-    private WebDriver driver;
+    private Browser browser;
     private LoginPage loginPage;
     private MainPage mainPage;
 
     public LoginServiceImpl() {
         this.loginPage = new LoginPage();
-        this.driver = WebDriverFactory.getInstance();
+        this.browser = Browser.getBrowser();
     }
 
     @Override
     public void login(User user) {
-        driver.get(Constants.MAILRU_URL);
+        browser.open(Constants.MAILRU_URL);
         mainPage = loginPage.typeLogin(user.getEmail())
                 .typePassword(user.getPassword())
                 .submitLogin();
@@ -39,7 +38,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     private String getErrorMessage() {
-        String message = driver.findElement(Constants.ERROR_MSG_LOCATOR).getText().trim();
+        String message = browser.findElement(Constants.ERROR_MSG_LOCATOR).getText().trim();
         return message;
     }
 
