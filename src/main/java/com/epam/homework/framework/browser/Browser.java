@@ -1,4 +1,4 @@
-package com.epam.homework.framework;
+package com.epam.homework.framework.browser;
 
 import com.epam.homework.product.utility.WebDriverFactory;
 import org.openqa.selenium.By;
@@ -76,8 +76,8 @@ public final class Browser implements WrapsDriver {
     }
 
     public void waitForElementIsClickable(By by) {
-            WebDriverWait wait = new WebDriverWait(driver, ELEMENT_WAIT_TIMEOUT_SECONDS);
-            wait.until(ExpectedConditions.elementToBeClickable(by));
+        WebDriverWait wait = new WebDriverWait(driver, ELEMENT_WAIT_TIMEOUT_SECONDS);
+        wait.until(ExpectedConditions.elementToBeClickable(by));
     }
 
     public void clickElement(By by) {

@@ -4,9 +4,6 @@ import org.testng.TestNG;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by Al on 23.09.2016.
- */
 public class TestRunner {
     static final String SUIT_PATH = "./src/test-suits/";
     static final String COMMON_TESTS = "suit.xml";

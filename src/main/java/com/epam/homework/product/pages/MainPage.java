@@ -1,10 +1,12 @@
 package com.epam.homework.product.pages;
 
+import com.epam.homework.framework.browser.Browser;
+import com.epam.homework.framework.element.Element;
 import com.epam.homework.product.beans.Message;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
 
-public class MainPage extends AbstractBasePage {
+public class MainPage {
     private static final By USERNAME_LOCATOR = By.xpath("//*[@id='PH_user-email']");
     private static final By NEW_MAIL_BUTTON_LOCATOR =
             By.xpath("//div[@id='b-toolbar__left']//a[@data-name='compose']/span");
@@ -12,7 +14,8 @@ public class MainPage extends AbstractBasePage {
             By.xpath("//div[@data-mnemo='nav-folders']//a[@href='/messages/sent/']");
     private static final String CONCRETE_MESSAGE_LOCATOR_PATTERN =
             ".//div[contains(@class,'b-datalist__body')]/div[%s]//a";
-    private static final By INBOX_LINK_LOCATOR = By.xpath("//span[contains(@class, 'b-nav__item__text b-nav__item__text_unread')]");
+    private static final By INBOX_LINK_LOCATOR =
+            By.xpath("//span[contains(@class, 'b-nav__item__text b-nav__item__text_unread')]");
     private static final By DRAFT_LINK_LOCATOR =
             By.xpath("//div[@data-mnemo='nav-folders']//a[@href='/messages/drafts/']");
     private static final By TRASH_LINK_LOCATOR =
@@ -29,53 +32,51 @@ public class MainPage extends AbstractBasePage {
     }
 
     public String getUsernameTitle() {
-        String message = browser.findElement(USERNAME_LOCATOR).getText().trim();
+        String message = new Element(USERNAME_LOCATOR).getText();
         return message;
     }
 
     public ComposePage clickCompose() {
-        browser.clickElement(NEW_MAIL_BUTTON_LOCATOR);
-        return PageFactory.initElements(browser.getWrappedDriver(), ComposePage.class);
+        clickOnElement(NEW_MAIL_BUTTON_LOCATOR);
+        return PageFactory.initElements(Browser.getBrowser().getWrappedDriver(), ComposePage.class);
     }
 
     public MainPage clickSent() {
-        browser.waitForElementIsPresent(SENT_LINK_LOCATOR);
-        browser.clickElement(SENT_LINK_LOCATOR);
+        clickOnElement(SENT_LINK_LOCATOR);
         return this;
     }
 
     public MainPage clickInbox() {
-        browser.waitForElementIsPresent(INBOX_LINK_LOCATOR);
-        browser.clickElement(INBOX_LINK_LOCATOR);
+        clickOnElement(INBOX_LINK_LOCATOR);
         return this;
     }
 
     public MainPage clickTrash() {
-        browser.clickElement(TRASH_LINK_LOCATOR);
+        clickOnElement(TRASH_LINK_LOCATOR);
         return this;
     }
 
     public MainPage clickDraft() {
-        browser.clickElement(DRAFT_LINK_LOCATOR);
+        clickOnElement(DRAFT_LINK_LOCATOR);
         return this;
     }
 
     public MainPage clickDelete() {
-        browser.clickElement(DELETE_EMAIL_LOCATOR);
+        clickOnElement(DELETE_EMAIL_LOCATOR);
         return this;
     }
 
     public void markMessage(int index) {
         By locator = makeMessageLocator(CONCRETE_MAIL_CHECKBOX_LOCATOR_PATTERN, index);
-        browser.clickElement(locator);
+        clickOnElement(locator);
     }
 
     public Message getMessage(int index) {
         By locator = makeMessageLocator(CONCRETE_MESSAGE_LOCATOR_PATTERN, index);
-        browser.clickElement(locator);
-        String email = browser.findElement(MAIL_EMAIL_LOCATOR).getAttribute(EMAIL_ATTR);
-        String subject = browser.findElement(MAIL_SUBJECT_LOCATOR).getText();
-        String body = browser.findElement(MAIL_TEXT_LOCATOR).getText();
+        clickOnElement(locator);
+        String email = new Element(MAIL_EMAIL_LOCATOR).getWrappedWebElement().getAttribute(EMAIL_ATTR);
+        String subject = new Element(MAIL_SUBJECT_LOCATOR).getText();
+        String body = new Element(MAIL_TEXT_LOCATOR).getText();
         return new Message(email, subject, body);
     }
 
@@ -83,5 +84,12 @@ public class MainPage extends AbstractBasePage {
         String target = String.format(pattern, index);
         By locator = By.xpath(target);
         return locator;
+    }
+
+    private void clickOnElement(By locator) {
+        Element element = new Element(locator);
+        element.waitForAppear();
+        element.click();
+
     }
 }

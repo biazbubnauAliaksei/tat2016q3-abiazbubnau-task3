@@ -1,6 +1,6 @@
 package com.epam.homework.test;
 
-import com.epam.homework.framework.Browser;
+import com.epam.homework.framework.browser.Browser;
 import com.epam.homework.product.beans.Message;
 import com.epam.homework.product.beans.User;
 import com.epam.homework.product.utility.constants.Constants;

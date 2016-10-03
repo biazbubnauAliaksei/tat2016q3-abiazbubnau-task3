@@ -1,6 +1,6 @@
 package com.epam.homework.service.impl;
 
-import com.epam.homework.framework.Browser;
+import com.epam.homework.framework.browser.Browser;
 import com.epam.homework.product.beans.Message;
 import com.epam.homework.product.utility.constants.Constants;
 import com.epam.homework.service.iface.MailService;
@@ -31,9 +31,9 @@ public class MailServiceImpl implements MailService {
         composePage.typeEmail(message.getEmail())
                 .typeSubject(message.getSubject())
                 .typeBody(message.getBody())
-               .sendMessage();
+                .sendMessage();
         if (message.getBody() == Constants.EMPTY) {
-           Alert alert = (new WebDriverWait(browser.getWrappedDriver(), Browser.ELEMENT_WAIT_TIMEOUT_SECONDS))
+            Alert alert = (new WebDriverWait(browser.getWrappedDriver(), Browser.ELEMENT_WAIT_TIMEOUT_SECONDS))
                     .until(alertIsPresent());
             alert.accept();
         }

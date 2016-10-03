@@ -2,9 +2,6 @@ package com.epam.homework.product.enums;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Al on 26.09.2016.
- */
 public enum DriverTimeouts {
 
     IMPLICIT_WAIT(1, TimeUnit.SECONDS),
