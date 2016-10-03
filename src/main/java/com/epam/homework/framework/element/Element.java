@@ -44,4 +44,9 @@ public class Element {
         element.clear();
         element.sendKeys(value);
     }
+
+    public void waitAndClick() {
+        waitForAppear();
+        click();
+    }
 }

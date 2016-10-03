@@ -1,10 +1,8 @@
 package com.epam.homework.product.pages;
 
-import com.epam.homework.framework.browser.Browser;
 import com.epam.homework.framework.element.Element;
 import com.epam.homework.product.beans.Message;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.PageFactory;
 
 public class MainPage {
     private static final By USERNAME_LOCATOR = By.xpath("//*[@id='PH_user-email']");
@@ -28,51 +26,56 @@ public class MainPage {
     private static final String CONCRETE_MAIL_CHECKBOX_LOCATOR_PATTERN =
             "//div[contains(@class, 'b-datalist__body')]/div[%s]//div[contains(@class, 'b-checkbox__box')]";
 
-    public MainPage() {
-    }
+    private final Element userName = new Element(USERNAME_LOCATOR);
+    private final Element newMailButton = new Element(NEW_MAIL_BUTTON_LOCATOR);
+    private final Element sentLink = new Element(SENT_LINK_LOCATOR);
+    private final Element inboxLink = new Element(INBOX_LINK_LOCATOR);
+    private final Element trashLink = new Element(TRASH_LINK_LOCATOR);
+    private final Element draftLink = new Element(DRAFT_LINK_LOCATOR);
+    private final Element deleteLink = new Element(DELETE_EMAIL_LOCATOR);
 
     public String getUsernameTitle() {
-        String message = new Element(USERNAME_LOCATOR).getText();
+        String message = userName.getText();
         return message;
     }
 
     public ComposePage clickCompose() {
-        clickOnElement(NEW_MAIL_BUTTON_LOCATOR);
-        return PageFactory.initElements(Browser.getBrowser().getWrappedDriver(), ComposePage.class);
+        clickOnElement(newMailButton);
+        return new ComposePage();
     }
 
     public MainPage clickSent() {
-        clickOnElement(SENT_LINK_LOCATOR);
+        clickOnElement(sentLink);
         return this;
     }
 
     public MainPage clickInbox() {
-        clickOnElement(INBOX_LINK_LOCATOR);
+        clickOnElement(inboxLink);
         return this;
     }
 
     public MainPage clickTrash() {
-        clickOnElement(TRASH_LINK_LOCATOR);
+        clickOnElement(trashLink);
         return this;
     }
 
     public MainPage clickDraft() {
-        clickOnElement(DRAFT_LINK_LOCATOR);
+        clickOnElement(draftLink);
         return this;
     }
 
     public MainPage clickDelete() {
-        clickOnElement(DELETE_EMAIL_LOCATOR);
+        clickOnElement(deleteLink);
         return this;
     }
 
     public void markMessage(int index) {
-        By locator = makeMessageLocator(CONCRETE_MAIL_CHECKBOX_LOCATOR_PATTERN, index);
+        Element locator = new Element(makeMessageLocator(CONCRETE_MAIL_CHECKBOX_LOCATOR_PATTERN, index));
         clickOnElement(locator);
     }
 
     public Message getMessage(int index) {
-        By locator = makeMessageLocator(CONCRETE_MESSAGE_LOCATOR_PATTERN, index);
+        Element locator = new Element(makeMessageLocator(CONCRETE_MESSAGE_LOCATOR_PATTERN, index));
         clickOnElement(locator);
         String email = new Element(MAIL_EMAIL_LOCATOR).getWrappedWebElement().getAttribute(EMAIL_ATTR);
         String subject = new Element(MAIL_SUBJECT_LOCATOR).getText();
@@ -86,10 +89,7 @@ public class MainPage {
         return locator;
     }
 
-    private void clickOnElement(By locator) {
-        Element element = new Element(locator);
-        element.waitForAppear();
-        element.click();
-
+    private void clickOnElement(Element element) {
+        element.waitAndClick();
     }
 }

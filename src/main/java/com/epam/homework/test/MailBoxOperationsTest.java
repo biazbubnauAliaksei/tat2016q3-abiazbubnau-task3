@@ -15,19 +15,17 @@ import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
 
 public class MailBoxOperationsTest {
-    private Browser browser;
     private MailServiceImpl service;
     private Message message;
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
-        browser = Browser.getBrowser();
         service = new MailServiceImpl();
     }
 
     @AfterClass
     public void tearDown() {
-        browser.close();
+        Browser.getBrowser().close();
     }
 
     @Test(description = "Supports testing preconditions.")

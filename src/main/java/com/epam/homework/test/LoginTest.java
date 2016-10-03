@@ -2,6 +2,7 @@ package com.epam.homework.test;
 
 import com.epam.homework.framework.browser.Browser;
 import com.epam.homework.product.beans.User;
+import com.epam.homework.product.utility.exception.AuthorizationException;
 import com.epam.homework.service.impl.LoginServiceImpl;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -17,20 +18,18 @@ public class LoginTest {
             "Неверное имя пользователя или пароль. Проверьте правильность введенных данных.";
 
     private LoginServiceImpl service;
-    private Browser browser;
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
-        browser = Browser.getBrowser();
         service = new LoginServiceImpl();
     }
 
     @AfterMethod
     public void tearDown() {
-        browser.close();
+        Browser.getBrowser().close();
     }
 
-    @Test(expectedExceptions = RuntimeException.class, expectedExceptionsMessageRegExp = INVALID_PASSWORD_MESSAGE,
+    @Test(expectedExceptions = AuthorizationException.class, expectedExceptionsMessageRegExp = INVALID_PASSWORD_MESSAGE,
             description = "Should not be login, password is incorrect. Exception when login is incorrect")
     public void incorrectLogin() {
         doLogin(Constants.EMAIL_LOGIN, INCORRECT_PASS);

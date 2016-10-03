@@ -4,6 +4,7 @@ import com.epam.homework.framework.browser.Browser;
 import com.epam.homework.product.beans.Message;
 import com.epam.homework.product.beans.User;
 import com.epam.homework.product.utility.constants.Constants;
+import com.epam.homework.product.utility.exception.MessageSentException;
 import com.epam.homework.service.iface.LoginService;
 import com.epam.homework.service.iface.MailService;
 import com.epam.homework.service.impl.LoginServiceImpl;
@@ -11,6 +12,7 @@ import com.epam.homework.service.impl.MailServiceImpl;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -20,17 +22,15 @@ public class SendEmailTest {
 
     private static final String ADDRESS_ERROR_MESSAGE = "Не указан адрес получателя";
     private MailService service;
-    private Browser browser;
 
     @BeforeMethod
     public void setUp() {
-        browser = Browser.getBrowser();
         service = new MailServiceImpl();
     }
 
     @AfterClass
     public void tearDown() {
-        browser.close();
+        Browser.getBrowser().close();
     }
 
     @Test(description = "Supports testing preconditions")
@@ -57,7 +57,7 @@ public class SendEmailTest {
     }
 
     @Test(dependsOnMethods = "loginToMail", description = "Inability of sending message without email address.",
-            expectedExceptions = RuntimeException.class, expectedExceptionsMessageRegExp = ADDRESS_ERROR_MESSAGE)
+            expectedExceptions = MessageSentException.class, expectedExceptionsMessageRegExp = ADDRESS_ERROR_MESSAGE)
     public void sendMailNotFilledAddress() {
         Message message = new Message(Constants.EMPTY, Constants.EMPTY, Constants.EMPTY);
         service.sendIncorrectMessage(message);
