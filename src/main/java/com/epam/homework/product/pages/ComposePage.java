@@ -11,12 +11,16 @@ public class ComposePage {
     private static final By FRAME_TEXT_LOCATOR = By.xpath("//iframe[contains(@id ,'composeEditor_ifr')]");
     private static final By SEND_EMAIL_LOCATOR = By.xpath("//*[@id='b-toolbar__right']//div[@data-name='send']/span");
     private static final By SAVE_EMAIL_LOCATOR = By.xpath("//div[@data-name='saveDraft']/span");
+    private static final By ATTACH_FILE_INPUT_LOCATOR = By.xpath("//input[@type='file']");
+    private static final By ATTACHED_FILENAME_CONTAINS_ELEMENT_LOCATOR =
+            By.xpath("//div[contains(@class, 'js-item upload__file__name')]");
 
     private final Element fieldAddress = new Element(FIELD_ADDRESS_LOCATOR);
     private final Element fieldSubject = new Element(FIELD_SUBJECT_LOCATOR);
     private final Element fieldText = new Element(FIELD_TEXT_LOCATOR);
     private final Element sendMessageButton = new Element(SEND_EMAIL_LOCATOR);
     private final Element saveEmailButton = new Element(SAVE_EMAIL_LOCATOR);
+    private final Element attachFileInput = new Element(ATTACH_FILE_INPUT_LOCATOR);
 
     public ComposePage typeEmail(String email) {
         fieldAddress.typeValue(email);
@@ -45,4 +49,11 @@ public class ComposePage {
         saveEmailButton.click();
         return new MainPage();
     }
+
+    public ComposePage attachFile(String path) {
+        attachFileInput.waitForAppear();
+        attachFileInput.typeValue(path);
+        return this;
+    }
+
 }

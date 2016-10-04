@@ -14,13 +14,17 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
 public class SendEmailTest {
 
     private static final String ADDRESS_ERROR_MESSAGE = "Не указан адрес получателя";
+    private static final String ATTACHED_FILE_PATH_PATTERN = "./src/main/resources/file-to-upload%d.txt";
+    private static final int ATTACH_NUMBER = 3;
     private MailService service;
 
     @BeforeMethod
@@ -61,6 +65,24 @@ public class SendEmailTest {
     public void sendMailNotFilledAddress() {
         Message message = new Message(Constants.EMPTY, Constants.EMPTY, Constants.EMPTY);
         service.sendIncorrectMessage(message);
+    }
+
+    @Test(dependsOnMethods = "loginToMail", description = "Opportunity to send mail with attached file.")
+    public void sendCorrectMailWithAttachedFile() {
+        Message message = new Message(Constants.EMAIL_LOGIN, generateText(), generateText());
+        List<String> attaches = fillPathList(ATTACH_NUMBER);
+        service.sendMessage(message, attaches);
+        assertTrue(service.isAllFilesAttached(attaches));
+    }
+
+    private List<String> fillPathList(int number) {
+        List<String> attaches = new ArrayList<>(number);
+        for (int i = 1; i <= number; i++) {
+            String path = String.format(ATTACHED_FILE_PATH_PATTERN, i);
+            System.out.println(path);
+            attaches.add(path);
+        }
+        return attaches;
     }
 
     public static String generateText() {

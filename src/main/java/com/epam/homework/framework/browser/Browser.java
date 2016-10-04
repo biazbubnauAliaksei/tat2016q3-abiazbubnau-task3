@@ -8,6 +8,8 @@ import org.openqa.selenium.internal.WrapsDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public final class Browser implements WrapsDriver {
 
     public static final int ELEMENT_WAIT_TIMEOUT_SECONDS = 10;
@@ -47,6 +49,10 @@ public final class Browser implements WrapsDriver {
 
     public WebElement findElement(By by) {
         return driver.findElement(by);
+    }
+
+    public List<WebElement> findElements(By by) {
+        return driver.findElements(by);
     }
 
     public boolean isElementPresent(By by) {

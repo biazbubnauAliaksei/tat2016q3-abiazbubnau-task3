@@ -1,8 +1,13 @@
 package com.epam.homework.product.pages;
 
+import com.epam.homework.framework.browser.Browser;
 import com.epam.homework.framework.element.Element;
 import com.epam.homework.product.beans.Message;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainPage {
     private static final By USERNAME_LOCATOR = By.xpath("//*[@id='PH_user-email']");
@@ -25,6 +30,7 @@ public class MainPage {
     private static final By DELETE_EMAIL_LOCATOR = By.xpath("//div[@id='b-toolbar__right']//div[@data-name='remove']");
     private static final String CONCRETE_MAIL_CHECKBOX_LOCATOR_PATTERN =
             "//div[contains(@class, 'b-datalist__body')]/div[%s]//div[contains(@class, 'b-checkbox__box')]";
+    private static final By FILENAME_CONTAINING_ELEMENTS_LOCATOR = By.xpath("//div[contains(@class, 'b-filename__spacer')]");
 
     private final Element userName = new Element(USERNAME_LOCATOR);
     private final Element newMailButton = new Element(NEW_MAIL_BUTTON_LOCATOR);
@@ -75,8 +81,7 @@ public class MainPage {
     }
 
     public Message getMessage(int index) {
-        Element locator = new Element(makeMessageLocator(CONCRETE_MESSAGE_LOCATOR_PATTERN, index));
-        clickOnElement(locator);
+        clickMessage(index);
         String email = new Element(MAIL_EMAIL_LOCATOR).getWrappedWebElement().getAttribute(EMAIL_ATTR);
         String subject = new Element(MAIL_SUBJECT_LOCATOR).getText();
         String body = new Element(MAIL_TEXT_LOCATOR).getText();
@@ -87,6 +92,21 @@ public class MainPage {
         String target = String.format(pattern, index);
         By locator = By.xpath(target);
         return locator;
+    }
+
+    private void clickMessage(int index){
+        Element locator = new Element(makeMessageLocator(CONCRETE_MESSAGE_LOCATOR_PATTERN, index));
+        clickOnElement(locator);
+    }
+
+    public List<String> getListOfAttaches(int index){
+        List<String> results = new ArrayList<>();
+        clickMessage(index);
+        List<WebElement> elements = Browser.getBrowser().findElements(FILENAME_CONTAINING_ELEMENTS_LOCATOR);
+        for (WebElement element: elements){
+            String text = element.getText();
+            results.add(text);
+        } return results;
     }
 
     private void clickOnElement(Element element) {
