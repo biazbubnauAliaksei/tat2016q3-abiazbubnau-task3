@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="common-tests">
+    <test name="common">
+        <classes>
+            <class name="com.epam.homework.test.CorrectLoginTest"/>
+            <class name="com.epam.homework.test.IncorrectLoginTest"/>
+            <class name="com.epam.homework.test.SendEmailTest"/>
+            <class name="com.epam.homework.test.MailBoxOperationsTest"/>
+            <class name="com.epam.homework.test.BaseLoginTest"/>
+            <class name="com.epam.homework.test.BaseSetFixtureTest"/>
+        </classes>
+    </test>
+</suite>

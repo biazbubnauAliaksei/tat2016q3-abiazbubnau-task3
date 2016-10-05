@@ -31,6 +31,10 @@ public class Element {
         Browser.getBrowser().waitForElementIsVisible(by);
     }
 
+    public void waitForClickable() {
+        Browser.getBrowser().waitForElementIsClickable(by);
+    }
+
     public String getText() {
         return getWrappedWebElement().getText();
     }
@@ -47,6 +51,7 @@ public class Element {
 
     public void waitAndClick() {
         waitForAppear();
+        waitForClickable();
         click();
     }
 }
