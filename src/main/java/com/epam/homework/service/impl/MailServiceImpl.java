@@ -30,20 +30,21 @@ public class MailServiceImpl implements MailService {
         }
     }
 
-    private void doSend(Message message){
-        new ComposePage().typeEmail(message.getEmail())
-                .typeSubject(message.getSubject())
-                .typeBody(message.getBody())
-                .sendMessage();
-    }
     @Override
     public void sendMessage(Message message, List<String> attaches) {
         ComposePage page = new MainPage().clickCompose();
-        for (String path: attaches){
+        for (String path : attaches) {
             String absolutePath = new File(path).getAbsolutePath();
             page.attachFile(absolutePath);
         }
         doSend(message);
+    }
+
+    private void doSend(Message message) {
+        new ComposePage().typeEmail(message.getEmail())
+                .typeSubject(message.getSubject())
+                .typeBody(message.getBody())
+                .sendMessage();
     }
 
     @Override
@@ -62,20 +63,19 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void putInDraft(Message message) {
+    public void putInDraft() {
         new MainPage().clickCompose().clickSave();
     }
 
     @Override
     public void deleteMessage(Message message) {
         MainPage mainPage = new MainPage();
-        mainPage.getMessage(INDEX_1);
         mainPage.markMessage(INDEX_1);
         mainPage.clickDelete();
     }
 
     @Override
-    public boolean isAllFilesAttached(List<String> attaches){
+    public boolean isAllFilesAttached(List<String> attaches) {
         new MainPage().getMessage(INDEX_1);
         return isLastMessageHasTargetAttaches(attaches);
     }
@@ -101,14 +101,15 @@ public class MailServiceImpl implements MailService {
         return message.getEmail().equals(target.getEmail()) && message.getSubject().equals(target.getSubject());
     }
 
-    private boolean isLastMessageHasTargetAttaches(List<String> targets){
+    private boolean isLastMessageHasTargetAttaches(List<String> targets) {
         List<String> attaches = new MainPage().getListOfAttaches(INDEX_1);
         boolean result = false;
-        for (String attach: attaches){
-            for (String target: targets){
-               if (result = target.endsWith(attach)) {
-                   continue;
-               }
+        for (String attach : attaches) {
+            for (String target : targets) {
+                if (target.endsWith(attach)) {
+                    result = true;
+                    break;
+                }
             }
         }
         return result;

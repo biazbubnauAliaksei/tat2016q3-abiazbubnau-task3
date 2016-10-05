@@ -2,13 +2,15 @@ package com.epam.homework.product.beans;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class Message {
-    private final String email;
-    private final String subject;
-    private final String body;
+    private String email;
+    private String subject;
+    private String body;
 }

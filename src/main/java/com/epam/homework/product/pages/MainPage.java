@@ -30,7 +30,9 @@ public class MainPage {
     private static final By DELETE_EMAIL_LOCATOR = By.xpath("//div[@id='b-toolbar__right']//div[@data-name='remove']");
     private static final String CONCRETE_MAIL_CHECKBOX_LOCATOR_PATTERN =
             "//div[contains(@class, 'b-datalist__body')]/div[%s]//div[contains(@class, 'b-checkbox__box')]";
-    private static final By FILENAME_CONTAINING_ELEMENTS_LOCATOR = By.xpath("//div[contains(@class, 'b-filename__spacer')]");
+    private static final By ATTACHED_FILENAME_CONTAINING_ELEMENTS_LOCATOR =
+            By.xpath("//*[@id='b-letter']//a[@data-name='toCloud']");
+    private static final String ATTRIBUTE_DATA_FILENAME = "data-filename";
 
     private final Element userName = new Element(USERNAME_LOCATOR);
     private final Element newMailButton = new Element(NEW_MAIL_BUTTON_LOCATOR);
@@ -46,38 +48,38 @@ public class MainPage {
     }
 
     public ComposePage clickCompose() {
-        clickOnElement(newMailButton);
+        newMailButton.waitAndClick();
         return new ComposePage();
     }
 
     public MainPage clickSent() {
-        clickOnElement(sentLink);
+        sentLink.waitAndClick();
         return this;
     }
 
     public MainPage clickInbox() {
-        clickOnElement(inboxLink);
+        inboxLink.waitAndClick();
         return this;
     }
 
     public MainPage clickTrash() {
-        clickOnElement(trashLink);
+        trashLink.waitAndClick();
         return this;
     }
 
     public MainPage clickDraft() {
-        clickOnElement(draftLink);
+        draftLink.waitAndClick();
         return this;
     }
 
     public MainPage clickDelete() {
-        clickOnElement(deleteLink);
+        deleteLink.waitAndClick();
         return this;
     }
 
     public void markMessage(int index) {
         Element locator = new Element(makeMessageLocator(CONCRETE_MAIL_CHECKBOX_LOCATOR_PATTERN, index));
-        clickOnElement(locator);
+        locator.waitAndClick();
     }
 
     public Message getMessage(int index) {
@@ -94,22 +96,19 @@ public class MainPage {
         return locator;
     }
 
-    private void clickMessage(int index){
+    private void clickMessage(int index) {
         Element locator = new Element(makeMessageLocator(CONCRETE_MESSAGE_LOCATOR_PATTERN, index));
-        clickOnElement(locator);
+        locator.waitAndClick();
     }
 
-    public List<String> getListOfAttaches(int index){
+    public List<String> getListOfAttaches(int index) {
         List<String> results = new ArrayList<>();
         clickMessage(index);
-        List<WebElement> elements = Browser.getBrowser().findElements(FILENAME_CONTAINING_ELEMENTS_LOCATOR);
-        for (WebElement element: elements){
-            String text = element.getText();
+        List<WebElement> elements = Browser.getBrowser().findElements(ATTACHED_FILENAME_CONTAINING_ELEMENTS_LOCATOR);
+        for (WebElement element : elements) {
+            String text = element.getAttribute(ATTRIBUTE_DATA_FILENAME);
             results.add(text);
-        } return results;
-    }
-
-    private void clickOnElement(Element element) {
-        element.waitAndClick();
+        }
+        return results;
     }
 }

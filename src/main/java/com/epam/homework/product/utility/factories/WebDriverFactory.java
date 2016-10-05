@@ -1,4 +1,4 @@
-package com.epam.homework.product.utility;
+package com.epam.homework.product.utility.factories;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;

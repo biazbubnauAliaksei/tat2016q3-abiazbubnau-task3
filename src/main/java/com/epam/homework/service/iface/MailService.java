@@ -14,7 +14,7 @@ public interface MailService {
 
     boolean isMessageSent(Message message);
 
-    void putInDraft(Message message);
+    void putInDraft();
 
     void deleteMessage(Message message);
 

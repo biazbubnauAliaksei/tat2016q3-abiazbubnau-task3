@@ -1,6 +1,6 @@
 package com.epam.homework.framework.browser;
 
-import com.epam.homework.product.utility.WebDriverFactory;
+import com.epam.homework.product.utility.factories.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

@@ -12,8 +12,6 @@ public class ComposePage {
     private static final By SEND_EMAIL_LOCATOR = By.xpath("//*[@id='b-toolbar__right']//div[@data-name='send']/span");
     private static final By SAVE_EMAIL_LOCATOR = By.xpath("//div[@data-name='saveDraft']/span");
     private static final By ATTACH_FILE_INPUT_LOCATOR = By.xpath("//input[@type='file']");
-    private static final By ATTACHED_FILENAME_CONTAINS_ELEMENT_LOCATOR =
-            By.xpath("//div[contains(@class, 'js-item upload__file__name')]");
 
     private final Element fieldAddress = new Element(FIELD_ADDRESS_LOCATOR);
     private final Element fieldSubject = new Element(FIELD_SUBJECT_LOCATOR);
@@ -51,7 +49,6 @@ public class ComposePage {
     }
 
     public ComposePage attachFile(String path) {
-        attachFileInput.waitForAppear();
         attachFileInput.typeValue(path);
         return this;
     }

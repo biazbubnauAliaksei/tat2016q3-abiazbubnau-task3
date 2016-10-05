@@ -31,8 +31,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     private String getErrorMessage() {
-        String message = new ErrorLoginPage().getErrorMessage();
-        return message;
+        return new ErrorLoginPage().getErrorMessage();
     }
 
 }
