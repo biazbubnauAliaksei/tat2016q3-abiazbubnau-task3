@@ -16,9 +16,9 @@ public class MainPage {
     private static final By SENT_LINK_LOCATOR =
             By.xpath("//div[@data-mnemo='nav-folders']//a[@href='/messages/sent/']");
     private static final String CONCRETE_MESSAGE_LOCATOR_PATTERN =
-            ".//div[contains(@class,'b-datalist__body')]/div[%s]//a";
+            ".//div[contains(@class,'b-datalist__body')]/div[%d]//a";
     private static final By INBOX_LINK_LOCATOR =
-            By.xpath("//span[contains(@class, 'b-nav__item__text b-nav__item__text_unread')]");
+            By.xpath("//div[@data-mnemo='nav-folders']//a[@href='/messages/inbox/']");
     private static final By DRAFT_LINK_LOCATOR =
             By.xpath("//div[@data-mnemo='nav-folders']//a[@href='/messages/drafts/']");
     private static final By TRASH_LINK_LOCATOR =
@@ -29,7 +29,7 @@ public class MainPage {
     private static final String EMAIL_ATTR = "data-contact-informer-email";
     private static final By DELETE_EMAIL_LOCATOR = By.xpath("//div[@id='b-toolbar__right']//div[@data-name='remove']");
     private static final String CONCRETE_MAIL_CHECKBOX_LOCATOR_PATTERN =
-            "//div[contains(@class, 'b-datalist__body')]/div[%s]//div[contains(@class, 'b-checkbox__box')]";
+            "//div[contains(@class, 'b-datalist__body')]/div[%]//div[contains(@class, 'b-checkbox__box')]";
     private static final By ATTACHED_FILENAME_CONTAINING_ELEMENTS_LOCATOR =
             By.xpath("//*[@id='b-letter']//a[@data-name='toCloud']");
     private static final String ATTRIBUTE_DATA_FILENAME = "data-filename";

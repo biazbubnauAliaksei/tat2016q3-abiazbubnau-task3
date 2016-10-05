@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 import static org.apache.commons.lang3.RandomStringUtils.*;
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
+import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 public class MailBoxOperationsTest {
     private MailServiceImpl service;
@@ -41,7 +42,7 @@ public class MailBoxOperationsTest {
     public void messagePutsInTrash() {
         String content = random(Constants.CONTENT_INDEX);
         message = new MessageBuilder()
-                .body(Constants.EMPTY)
+                .body(EMPTY)
                 .email(content)
                 .subject(content)
                 .build();

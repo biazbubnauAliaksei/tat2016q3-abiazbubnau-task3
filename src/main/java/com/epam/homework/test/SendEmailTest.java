@@ -2,7 +2,9 @@ package com.epam.homework.test;
 
 import com.epam.homework.framework.browser.Browser;
 import com.epam.homework.product.beans.Message;
+import com.epam.homework.product.beans.MessageWithAttach;
 import com.epam.homework.product.utility.builders.MessageBuilder;
+import com.epam.homework.product.utility.builders.MessageWithAttachBuilder;
 import com.epam.homework.product.utility.constants.Constants;
 import com.epam.homework.product.utility.exception.MessageSentException;
 import com.epam.homework.product.utility.factories.MessageFactory;
@@ -15,6 +17,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +51,7 @@ public class SendEmailTest {
 
     @Test(dependsOnMethods = "loginToMail", description = "Correct mail sending process.")
     public void sendMailAllFieldsCorrect() {
-        String body = random(Constants.CONTENT_INDEX);
+        String body = randomAlphanumeric(Constants.CONTENT_INDEX);
         Message message = new MessageBuilder()
                 .email(Constants.EMAIL_LOGIN)
                 .subject(body)
@@ -73,22 +77,23 @@ public class SendEmailTest {
 
     @Test(dependsOnMethods = "loginToMail", description = "Opportunity to send mail with attached file.")
     public void sendCorrectMailWithAttachedFile() {
-        String content = random(Constants.CONTENT_INDEX);
-        Message message = new MessageBuilder()
+        String content = randomAlphanumeric(Constants.CONTENT_INDEX);
+        List<Path> attaches = fillPathList(ATTACH_NUMBER);
+        MessageWithAttach message = new MessageWithAttachBuilder()
                 .email(Constants.EMAIL_LOGIN)
                 .subject(content)
                 .body(content)
+                .attach(attaches)
                 .build();
-        List<String> attaches = fillPathList(ATTACH_NUMBER);
-        service.sendMessage(message, attaches);
+        service.sendMessage(message);
         assertTrue(service.isAllFilesAttached(attaches));
     }
 
-    private List<String> fillPathList(int number) {
-        List<String> attaches = new ArrayList<>(number);
+    private List<Path> fillPathList(int number) {
+        List<Path> attaches = new ArrayList<>(number);
         for (int i = 1; i <= number; i++) {
             String path = String.format(ATTACHED_FILE_PATH_PATTERN, i);
-            attaches.add(path);
+            attaches.add(Paths.get(path));
         }
         return attaches;
     }

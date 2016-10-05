@@ -4,6 +4,8 @@ import com.epam.homework.framework.browser.Browser;
 import com.epam.homework.framework.element.Element;
 import org.openqa.selenium.By;
 
+import java.nio.file.Path;
+
 public class ComposePage {
     private static final By FIELD_ADDRESS_LOCATOR = By.xpath(".//textarea[@data-original-name='To']");
     private static final By FIELD_SUBJECT_LOCATOR = By.xpath(".//input[@name='Subject']");
@@ -48,8 +50,8 @@ public class ComposePage {
         return new MainPage();
     }
 
-    public ComposePage attachFile(String path) {
-        attachFileInput.typeValue(path);
+    public ComposePage attachFile(Path path) {
+        attachFileInput.typeValue(path.toString());
         return this;
     }
 

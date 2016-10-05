@@ -1,14 +1,16 @@
 package com.epam.homework.service.iface;
 
 import com.epam.homework.product.beans.Message;
+import com.epam.homework.product.beans.MessageWithAttach;
 
+import java.nio.file.Path;
 import java.util.List;
 
 public interface MailService {
 
     void sendMessage(Message message);
 
-    void sendMessage(Message message, List<String> attaches);
+    void sendMessage(MessageWithAttach message);
 
     void sendIncorrectMessage(Message message);
 
@@ -18,7 +20,8 @@ public interface MailService {
 
     void deleteMessage(Message message);
 
-    boolean isAllFilesAttached(List<String> attaches);
+    boolean isAllFilesAttached(List<Path> attaches);
 
     boolean isMessageInTrash(Message message);
+
 }

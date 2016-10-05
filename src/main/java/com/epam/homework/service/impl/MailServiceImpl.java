@@ -2,7 +2,8 @@ package com.epam.homework.service.impl;
 
 import com.epam.homework.framework.browser.Browser;
 import com.epam.homework.product.beans.Message;
-import com.epam.homework.product.utility.constants.Constants;
+import com.epam.homework.product.beans.MessageWithAttach;
+import com.epam.homework.product.utility.builders.MessageBuilder;
 import com.epam.homework.product.utility.exception.MessageSentException;
 import com.epam.homework.service.iface.MailService;
 import com.epam.homework.product.pages.ComposePage;
@@ -10,7 +11,9 @@ import com.epam.homework.product.pages.MainPage;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
+import static org.apache.commons.lang3.StringUtils.EMPTY;
+
+import java.nio.file.Path;
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.alertIsPresent;
@@ -22,7 +25,7 @@ public class MailServiceImpl implements MailService {
     public void sendMessage(Message message) {
         new MainPage().clickCompose();
         doSend(message);
-        if (message.getBody().equals(Constants.EMPTY)) {
+        if (message.getBody().equals(EMPTY)) {
             Alert alert = (new WebDriverWait(Browser.getBrowser().getWrappedDriver(),
                     Browser.ELEMENT_WAIT_TIMEOUT_SECONDS))
                     .until(alertIsPresent());
@@ -31,13 +34,17 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void sendMessage(Message message, List<String> attaches) {
+    public void sendMessage(MessageWithAttach message) {
         ComposePage page = new MainPage().clickCompose();
-        for (String path : attaches) {
-            String absolutePath = new File(path).getAbsolutePath();
-            page.attachFile(absolutePath);
+        for (Path path : message.getAttaches()) {
+            page.attachFile(path.toAbsolutePath());
         }
-        doSend(message);
+        Message coreMessage = new MessageBuilder()
+                .email(message.getEmail())
+                .subject(message.getSubject())
+                .body(message.getBody())
+                .build();
+        doSend(coreMessage);
     }
 
     private void doSend(Message message) {
@@ -59,7 +66,7 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public boolean isMessageSent(Message message) {
-        return isMessageInSent(message) && isMessageInInbox(message);
+        return isMessageInInbox(message) && isMessageInSent(message);
     }
 
     @Override
@@ -75,7 +82,7 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public boolean isAllFilesAttached(List<String> attaches) {
+    public boolean isAllFilesAttached(List<Path> attaches) {
         new MainPage().getMessage(INDEX_1);
         return isLastMessageHasTargetAttaches(attaches);
     }
@@ -101,11 +108,11 @@ public class MailServiceImpl implements MailService {
         return message.getEmail().equals(target.getEmail()) && message.getSubject().equals(target.getSubject());
     }
 
-    private boolean isLastMessageHasTargetAttaches(List<String> targets) {
+    private boolean isLastMessageHasTargetAttaches(List<Path> targets) {
         List<String> attaches = new MainPage().getListOfAttaches(INDEX_1);
         boolean result = false;
         for (String attach : attaches) {
-            for (String target : targets) {
+            for (Path target : targets) {
                 if (target.endsWith(attach)) {
                     result = true;
                     break;
