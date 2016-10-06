@@ -49,6 +49,11 @@ public class Element {
     }
 
     public void waitAndClick() {
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         waitForClickable();
         click();
     }

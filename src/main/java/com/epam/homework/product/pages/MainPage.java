@@ -29,7 +29,7 @@ public class MainPage {
     private static final String EMAIL_ATTR = "data-contact-informer-email";
     private static final By DELETE_EMAIL_LOCATOR = By.xpath("//div[@id='b-toolbar__right']//div[@data-name='remove']");
     private static final String CONCRETE_MAIL_CHECKBOX_LOCATOR_PATTERN =
-            "//div[contains(@class, 'b-datalist__body')]/div[%]//div[contains(@class, 'b-checkbox__box')]";
+            "//div[contains(@class, 'b-datalist__body')]/div[%d]//div[contains(@class, 'b-checkbox__box')]";
     private static final By ATTACHED_FILENAME_CONTAINING_ELEMENTS_LOCATOR =
             By.xpath("//*[@id='b-letter']//a[@data-name='toCloud']");
     private static final String ATTRIBUTE_DATA_FILENAME = "data-filename";

@@ -86,7 +86,7 @@ public class SendEmailTest {
                 .attach(attaches)
                 .build();
         service.sendMessage(message);
-        assertTrue(service.isAllFilesAttached(attaches));
+        assertTrue("All filenames of attached files should be presents remotely", service.isAllFilesAttached(attaches));
     }
 
     private List<Path> fillPathList(int number) {

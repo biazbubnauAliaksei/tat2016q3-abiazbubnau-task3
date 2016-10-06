@@ -12,9 +12,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MessageWithAttach {
-    private String email;
-    private String subject;
-    private String body;
+public class MessageWithAttach extends Message {
     private List<Path> attaches;
 }
