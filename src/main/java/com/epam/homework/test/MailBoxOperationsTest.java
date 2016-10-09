@@ -2,8 +2,7 @@ package com.epam.homework.test;
 
 import com.epam.homework.framework.browser.Browser;
 import com.epam.homework.product.beans.Message;
-import com.epam.homework.product.utility.builders.MessageBuilder;
-import com.epam.homework.product.utility.constants.Constants;
+import com.epam.homework.product.utility.factories.MessageFactory;
 import com.epam.homework.product.utility.factories.UserFactory;
 import com.epam.homework.service.iface.LoginService;
 import com.epam.homework.service.impl.LoginServiceImpl;
@@ -15,7 +14,6 @@ import org.testng.annotations.Test;
 import static org.apache.commons.lang3.RandomStringUtils.*;
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
-import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 public class MailBoxOperationsTest {
     private MailServiceImpl service;
@@ -40,20 +38,16 @@ public class MailBoxOperationsTest {
 
     @Test(dependsOnMethods = "loginToMail", description = "Message could be puts in folder 'Trash'.")
     public void messagePutsInTrash() {
-        String content = random(Constants.CONTENT_INDEX);
-        message = new MessageBuilder()
-                .body(EMPTY)
-                .email(content)
-                .subject(content)
-                .build();
+        message = MessageFactory.createEmptyMessage();
         service.putInDraft();
+        service.deleteFromDraft(message);
         assertTrue("Message should be in trash.", service.isMessageInTrash(message));
     }
 
     @Test(dependsOnMethods = {"loginToMail", "messagePutsInTrash"},
             description = "Message should be desappeared from 'Trash' folder")
     public void deleteMessageFromTrash() {
-        service.deleteMessage(message);
+        service.deleteFromDraft(message);
         assertFalse("Message could not be in trash folder", service.isMessageInTrash(message));
     }
 }

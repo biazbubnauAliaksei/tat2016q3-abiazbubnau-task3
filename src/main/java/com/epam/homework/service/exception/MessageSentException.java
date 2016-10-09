@@ -1,4 +1,4 @@
-package com.epam.homework.product.utility.exception;
+package com.epam.homework.service.exception;
 
 public class MessageSentException extends RuntimeException {
     public MessageSentException(String message) {

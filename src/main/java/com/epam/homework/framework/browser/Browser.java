@@ -1,6 +1,6 @@
 package com.epam.homework.framework.browser;
 
-import com.epam.homework.product.utility.factories.WebDriverFactory;
+import com.epam.homework.framework.utility.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,11 +8,11 @@ import org.openqa.selenium.internal.WrapsDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static com.epam.homework.product.enums.DriverTimeouts.EXPLICIT_WAIT;
+
 import java.util.List;
 
 public final class Browser implements WrapsDriver {
-
-    public static final int ELEMENT_WAIT_TIMEOUT_SECONDS = 10;
 
     private static Browser instance;
     private WebDriver driver;
@@ -55,6 +55,20 @@ public final class Browser implements WrapsDriver {
         return driver.findElements(by);
     }
 
+    public WebElement getVisibleWebElement(By by) {
+        List<WebElement> elements = Browser.getBrowser().findElements(by);
+        WebElement result = null;
+        for (WebElement element : elements) {
+            if (element.isEnabled()) {
+                result = element;
+                break;
+            }
+        }
+        WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT.getValue());
+        wait.until(ExpectedConditions.visibilityOf(result));
+        return result;
+    }
+
     public boolean isElementPresent(By by) {
         return driver.findElements(by).size() > 0;
     }
@@ -67,23 +81,28 @@ public final class Browser implements WrapsDriver {
     }
 
     public void waitForElementIsPresent(By by) {
-        WebDriverWait wait = new WebDriverWait(driver, ELEMENT_WAIT_TIMEOUT_SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT.getValue());
         wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
     public void waitForElementIsVisible(By by) {
-        WebDriverWait wait = new WebDriverWait(driver, ELEMENT_WAIT_TIMEOUT_SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT.getValue());
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
     public void waitForElementIsNotVisible(By by) {
-        WebDriverWait wait = new WebDriverWait(driver, ELEMENT_WAIT_TIMEOUT_SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT.getValue());
         wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
     }
 
     public void waitForElementIsClickable(By by) {
-        WebDriverWait wait = new WebDriverWait(driver, ELEMENT_WAIT_TIMEOUT_SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT.getValue());
         wait.until(ExpectedConditions.elementToBeClickable(by));
+    }
+
+    public void waitForAlertIsPresent() {
+        WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT.getValue());
+        wait.until(ExpectedConditions.alertIsPresent());
     }
 
     public void clickElement(By by) {

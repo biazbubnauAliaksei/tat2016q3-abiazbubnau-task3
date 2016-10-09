@@ -32,7 +32,6 @@ public class Element {
     }
 
     public void waitForClickable() {
-        Browser.getBrowser().waitForElementIsClickable(by);
     }
 
     public String getText() {
@@ -45,16 +44,12 @@ public class Element {
 
     public void typeValue(String value) {
         WebElement element = getWrappedWebElement();
+        element.clear();
         element.sendKeys(value);
     }
 
     public void waitAndClick() {
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        waitForClickable();
+        waitForAppear();
         click();
     }
 }

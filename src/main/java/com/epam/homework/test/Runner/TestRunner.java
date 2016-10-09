@@ -1,5 +1,6 @@
-package com.epam.homework;
+package com.epam.homework.test.runner;
 
+import com.epam.homework.test.listner.TestListner;
 import org.testng.TestNG;
 import java.util.Arrays;
 import java.util.List;
@@ -10,6 +11,7 @@ public class TestRunner {
 
     public static void main(String[] args) {
         TestNG testNG = new TestNG();
+        testNG.addListener(TestListner.class);
         List<String> files = Arrays.asList(SUIT_PATH + COMMON_TESTS, SUIT_PATH);
         testNG.setTestSuites(files);
         testNG.run();

@@ -1,4 +1,4 @@
-package com.epam.homework.product.utility.exception;
+package com.epam.homework.service.exception;
 
 public class AuthorizationException extends RuntimeException {
     public AuthorizationException(String message) {

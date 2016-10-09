@@ -16,12 +16,6 @@ public interface MailService {
 
     boolean isMessageSent(Message message);
 
-    void putInDraft();
-
-    void deleteMessage(Message message);
-
     boolean isAllFilesAttached(List<Path> attaches);
-
-    boolean isMessageInTrash(Message message);
 
 }

@@ -6,7 +6,7 @@ import com.epam.homework.product.beans.MessageWithAttach;
 import com.epam.homework.product.utility.builders.MessageBuilder;
 import com.epam.homework.product.utility.builders.MessageWithAttachBuilder;
 import com.epam.homework.product.utility.constants.Constants;
-import com.epam.homework.product.utility.exception.MessageSentException;
+import com.epam.homework.service.exception.MessageSentException;
 import com.epam.homework.product.utility.factories.MessageFactory;
 import com.epam.homework.product.utility.factories.UserFactory;
 import com.epam.homework.service.iface.LoginService;

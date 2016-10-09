@@ -42,6 +42,10 @@ public class MainPage {
     private final Element draftLink = new Element(DRAFT_LINK_LOCATOR);
     private final Element deleteLink = new Element(DELETE_EMAIL_LOCATOR);
 
+    public MainPage() {
+        inboxLink.waitForAppear();
+    }
+
     public String getUsernameTitle() {
         String message = userName.getText();
         return message;
@@ -79,7 +83,8 @@ public class MainPage {
 
     public void markMessage(int index) {
         Element locator = new Element(makeMessageLocator(CONCRETE_MAIL_CHECKBOX_LOCATOR_PATTERN, index));
-        locator.waitAndClick();
+        locator.waitForClickable();
+        locator.click();
     }
 
     public Message getMessage(int index) {
@@ -97,13 +102,13 @@ public class MainPage {
     }
 
     private void clickMessage(int index) {
-        Element locator = new Element(makeMessageLocator(CONCRETE_MESSAGE_LOCATOR_PATTERN, index));
-        locator.waitAndClick();
+        By locator = makeMessageLocator(CONCRETE_MESSAGE_LOCATOR_PATTERN, index);
+        WebElement target = Browser.getBrowser().getVisibleWebElement(locator);
+        target.click();
     }
 
-    public List<String> getListOfAttaches(int index) {
+    public List<String> getListOfAttaches() {
         List<String> results = new ArrayList<>();
-        clickMessage(index);
         List<WebElement> elements = Browser.getBrowser().findElements(ATTACHED_FILENAME_CONTAINING_ELEMENTS_LOCATOR);
         for (WebElement element : elements) {
             String text = element.getAttribute(ATTRIBUTE_DATA_FILENAME);
@@ -111,4 +116,5 @@ public class MainPage {
         }
         return results;
     }
+
 }

@@ -1,35 +1,29 @@
 package com.epam.homework.service.impl;
 
-import com.epam.homework.framework.browser.Browser;
 import com.epam.homework.product.beans.Message;
 import com.epam.homework.product.beans.MessageWithAttach;
 import com.epam.homework.product.utility.builders.MessageBuilder;
-import com.epam.homework.product.utility.exception.MessageSentException;
+import com.epam.homework.product.utility.constants.Constants;
+import com.epam.homework.service.exception.MessageSentException;
 import com.epam.homework.service.iface.MailService;
 import com.epam.homework.product.pages.ComposePage;
 import com.epam.homework.product.pages.MainPage;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 import java.nio.file.Path;
 import java.util.List;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.alertIsPresent;
-
 public class MailServiceImpl implements MailService {
     private static final int INDEX_1 = 1;
 
     @Override
     public void sendMessage(Message message) {
-        new MainPage().clickCompose();
+        MainPage mainPage = new MainPage();
+        mainPage.clickCompose();
         doSend(message);
         if (message.getBody().equals(EMPTY)) {
-            Alert alert = (new WebDriverWait(Browser.getBrowser().getWrappedDriver(),
-                    Browser.ELEMENT_WAIT_TIMEOUT_SECONDS))
-                    .until(alertIsPresent());
-            alert.accept();
+            new ComposePage().handleEmptyMailSendConfirmPopUp();
         }
     }
 
@@ -56,11 +50,10 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public void sendIncorrectMessage(Message message) throws MessageSentException {
-        new MainPage().clickCompose();
-        sendMessage(message);
-        Alert alert = Browser.getBrowser().getWrappedDriver().switchTo().alert();
-        String text = alert.getText();
-        alert.accept();
+        MainPage mainPage = new MainPage();
+        ComposePage page = mainPage.clickCompose();
+        doSend(message);
+        String text = page.handleIncorrectMessageAlert();
         throw new MessageSentException(text);
     }
 
@@ -69,25 +62,23 @@ public class MailServiceImpl implements MailService {
         return isMessageInInbox(message);
     }
 
-    @Override
     public void putInDraft() {
         new MainPage().clickCompose().clickSave();
     }
 
-    @Override
-    public void deleteMessage(Message message) {
+    public void deleteFromDraft(Message message) {
         MainPage mainPage = new MainPage();
+        mainPage.clickDraft();
         mainPage.markMessage(INDEX_1);
         mainPage.clickDelete();
     }
 
     @Override
     public boolean isAllFilesAttached(List<Path> attaches) {
-        new MainPage().getMessage(INDEX_1);
+        new MainPage().clickInbox().getMessage(INDEX_1);
         return isLastMessageHasTargetAttaches(attaches);
     }
 
-    @Override
     public boolean isMessageInTrash(Message message) {
         new MainPage().clickTrash();
         return isLastMessageTarget(message);
@@ -105,11 +96,15 @@ public class MailServiceImpl implements MailService {
 
     private boolean isLastMessageTarget(Message message) {
         Message target = new MainPage().getMessage(INDEX_1);
-        return message.getEmail().equals(target.getEmail()) && message.getSubject().equals(target.getSubject());
+        boolean emailEquality = message.getEmail().equals(target.getEmail());
+        boolean subjectEquality = message.getSubject().equals(target.getSubject());
+        boolean emptySubjectEquality = message.getSubject().equals(EMPTY)
+                && target.getSubject().equals(Constants.EMPTY_SUBJECT);
+        return emailEquality && (subjectEquality || emptySubjectEquality);
     }
 
     private boolean isLastMessageHasTargetAttaches(List<Path> targets) {
-        List<String> attaches = new MainPage().getListOfAttaches(INDEX_1);
+        List<String> attaches = new MainPage().getListOfAttaches();
         boolean result = false;
         for (String attach : attaches) {
             for (Path target : targets) {

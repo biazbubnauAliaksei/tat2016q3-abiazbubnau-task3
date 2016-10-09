@@ -4,7 +4,7 @@ import com.epam.homework.framework.browser.Browser;
 import com.epam.homework.product.beans.User;
 import com.epam.homework.product.pages.ErrorLoginPage;
 import com.epam.homework.product.utility.constants.Constants;
-import com.epam.homework.product.utility.exception.AuthorizationException;
+import com.epam.homework.service.exception.AuthorizationException;
 import com.epam.homework.service.iface.LoginService;
 import com.epam.homework.product.pages.LoginPage;
 import com.epam.homework.product.pages.MainPage;
