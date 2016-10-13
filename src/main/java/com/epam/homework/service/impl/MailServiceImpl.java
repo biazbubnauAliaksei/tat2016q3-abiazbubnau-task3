@@ -59,14 +59,16 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public boolean isMessageSent(Message message) {
-        return isMessageInInbox(message);
+        return isMessageInInbox(message) && isMessageInSent(message);
     }
 
     public void putInDraft() {
-        new MainPage().clickCompose().clickSave();
+        MainPage mainPage = new MainPage();
+        mainPage.clickCompose();
+        new ComposePage().clickSave();
     }
 
-    public void deleteFromDraft(Message message) {
+    public void deleteFromDraft() {
         MainPage mainPage = new MainPage();
         mainPage.clickDraft();
         mainPage.markMessage(INDEX_1);
@@ -75,7 +77,9 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public boolean isAllFilesAttached(List<Path> attaches) {
-        new MainPage().clickInbox().getMessage(INDEX_1);
+        MainPage mainPage = new MainPage();
+        mainPage.clickInbox();
+        mainPage.getMessage(INDEX_1);
         return isLastMessageHasTargetAttaches(attaches);
     }
 
@@ -96,7 +100,8 @@ public class MailServiceImpl implements MailService {
 
     private boolean isLastMessageTarget(Message message) {
         Message target = new MainPage().getMessage(INDEX_1);
-        boolean emailEquality = message.getEmail().equals(target.getEmail());
+        boolean emailEquality = message.getEmail().equals(target.getEmail())
+                || (message.getEmail().equals(EMPTY) && target.getEmail().equals(Constants.EMAIL_LOGIN));
         boolean subjectEquality = message.getSubject().equals(target.getSubject());
         boolean emptySubjectEquality = message.getSubject().equals(EMPTY)
                 && target.getSubject().equals(Constants.EMPTY_SUBJECT);

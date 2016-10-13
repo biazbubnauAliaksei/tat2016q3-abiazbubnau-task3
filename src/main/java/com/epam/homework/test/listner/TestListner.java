@@ -1,44 +1,22 @@
 package com.epam.homework.test.listner;
 
-import com.epam.homework.framework.browser.Browser;
-import org.testng.*;
+import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.TestListenerAdapter;
 
-public class TestListner implements ITestListener {
-
+public class TestListner extends TestListenerAdapter {
     @Override
-    public void onTestStart(ITestResult iTestResult) {
-        System.out.println("Test starting...");
+    public void onStart(ITestContext testContext) {
+        super.onStart(testContext);
     }
 
     @Override
-    public void onTestSuccess(ITestResult iTestResult) {
-        System.out.println("Test success.");
+    public void onFinish(ITestContext testContext) {
+        super.onFinish(testContext);
     }
 
     @Override
-    public void onTestFailure(ITestResult iTestResult) {
-        System.out.println("Test failure.");
-    }
-
-    @Override
-    public void onTestSkipped(ITestResult iTestResult) {
-        System.out.println("Test skipped.");
-    }
-
-    @Override
-    public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {
-        onTestFailure(iTestResult);
-
-    }
-
-    @Override
-    public void onStart(ITestContext iTestContext) {
-        System.out.println("Tests are starting...");
-    }
-
-    @Override
-    public void onFinish(ITestContext iTestContext) {
-        System.out.println("All tests are finished.");
-        Browser.getBrowser().close();
+    public void onTestFailure(ITestResult tr) {
+        super.onTestFailure(tr);
     }
 }

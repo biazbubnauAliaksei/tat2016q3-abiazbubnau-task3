@@ -32,6 +32,7 @@ public class Element {
     }
 
     public void waitForClickable() {
+        Browser.getBrowser().waitForElementIsClickable(by);
     }
 
     public String getText() {
@@ -50,6 +51,7 @@ public class Element {
 
     public void waitAndClick() {
         waitForAppear();
+        waitForClickable();
         click();
     }
 }

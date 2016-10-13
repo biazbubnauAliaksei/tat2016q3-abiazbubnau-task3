@@ -61,6 +61,7 @@ public class SendEmailTest {
         assertTrue("Message should be sent. All fields in order.", service.isMessageSent(message));
     }
 
+
     @Test(dependsOnMethods = "loginToMail", description = "Opportunity to send mail with incomplete data.")
     public void sendMailWithAddressNoSubjectNoBody() {
         Message message = MessageFactory.createEmailOnlyMessage();

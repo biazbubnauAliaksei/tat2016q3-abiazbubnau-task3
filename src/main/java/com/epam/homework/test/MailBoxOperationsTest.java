@@ -40,14 +40,14 @@ public class MailBoxOperationsTest {
     public void messagePutsInTrash() {
         message = MessageFactory.createEmptyMessage();
         service.putInDraft();
-        service.deleteFromDraft(message);
+        service.deleteFromDraft();
         assertTrue("Message should be in trash.", service.isMessageInTrash(message));
     }
 
     @Test(dependsOnMethods = {"loginToMail", "messagePutsInTrash"},
             description = "Message should be desappeared from 'Trash' folder")
     public void deleteMessageFromTrash() {
-        service.deleteFromDraft(message);
+        service.deleteFromDraft();
         assertFalse("Message could not be in trash folder", service.isMessageInTrash(message));
     }
 }

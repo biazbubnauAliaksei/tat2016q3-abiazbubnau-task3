@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static com.epam.homework.product.enums.DriverTimeouts.EXPLICIT_WAIT;
-
 import java.util.List;
 
 public final class Browser implements WrapsDriver {
@@ -53,20 +52,6 @@ public final class Browser implements WrapsDriver {
 
     public List<WebElement> findElements(By by) {
         return driver.findElements(by);
-    }
-
-    public WebElement getVisibleWebElement(By by) {
-        List<WebElement> elements = Browser.getBrowser().findElements(by);
-        WebElement result = null;
-        for (WebElement element : elements) {
-            if (element.isEnabled()) {
-                result = element;
-                break;
-            }
-        }
-        WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT.getValue());
-        wait.until(ExpectedConditions.visibilityOf(result));
-        return result;
     }
 
     public boolean isElementPresent(By by) {

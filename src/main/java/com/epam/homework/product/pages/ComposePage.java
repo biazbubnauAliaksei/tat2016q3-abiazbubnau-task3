@@ -29,10 +29,6 @@ public class ComposePage {
     private final Element attachFilenameContainingTable = new Element(ATTACH_FILENAMES_CONTAINING_TABLE_LOCATOR);
     private final Element emptyMailSendConfirmButton = new Element(EMPTY_MAIL_SEND_CONFIRM_POPUP_BUTTON_LOCATOR);
 
-    public ComposePage() {
-        fieldAddress.waitForAppear();
-    }
-
     public ComposePage typeEmail(String email) {
         fieldAddress.typeValue(email);
         return this;
@@ -56,7 +52,7 @@ public class ComposePage {
     }
 
     public MainPage clickSave() {
-        saveEmailButton.click();
+        saveEmailButton.waitAndClick();
         return new MainPage();
     }
 

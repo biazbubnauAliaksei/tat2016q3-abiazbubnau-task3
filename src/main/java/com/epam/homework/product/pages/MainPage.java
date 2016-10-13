@@ -16,7 +16,7 @@ public class MainPage {
     private static final By SENT_LINK_LOCATOR =
             By.xpath("//div[@data-mnemo='nav-folders']//a[@href='/messages/sent/']");
     private static final String CONCRETE_MESSAGE_LOCATOR_PATTERN =
-            ".//div[contains(@class,'b-datalist__body')]/div[%d]//a";
+            "//div[@id='b-letters']/div[%d]/div[not(contains(@style, 'display: none'))]//div[@data-bem='b-datalist__item']";
     private static final By INBOX_LINK_LOCATOR =
             By.xpath("//div[@data-mnemo='nav-folders']//a[@href='/messages/inbox/']");
     private static final By DRAFT_LINK_LOCATOR =
@@ -27,9 +27,11 @@ public class MainPage {
     private static final By MAIL_EMAIL_LOCATOR = By.xpath("//*[contains(@class, 'b-letter__head__addrs__from')]/span");
     private static final By MAIL_TEXT_LOCATOR = By.xpath("//*[contains(@class, 'b-letter__body')]//div[@id]");
     private static final String EMAIL_ATTR = "data-contact-informer-email";
-    private static final By DELETE_EMAIL_LOCATOR = By.xpath("//div[@id='b-toolbar__right']//div[@data-name='remove']");
+//    private static final By DELETE_EMAIL_LOCATOR = By.xpath("//div[@id='b-toolbar__right']//div[@data-name='remove']");
+    private static final By DELETE_EMAIL_LOCATOR =
+        By.xpath("//div[@id='b-toolbar__right']/div[not(contains(@style, 'display: none'))]//div[@data-name='remove']");
     private static final String CONCRETE_MAIL_CHECKBOX_LOCATOR_PATTERN =
-            "//div[contains(@class, 'b-datalist__body')]/div[%d]//div[contains(@class, 'b-checkbox__box')]";
+            "//div[contains(@class, 'b-datalist__body')]/div[%d]//div[contains(@class, 'js-item-checkbox b-datalist__item__cbx')]";
     private static final By ATTACHED_FILENAME_CONTAINING_ELEMENTS_LOCATOR =
             By.xpath("//*[@id='b-letter']//a[@data-name='toCloud']");
     private static final String ATTRIBUTE_DATA_FILENAME = "data-filename";
@@ -41,10 +43,6 @@ public class MainPage {
     private final Element trashLink = new Element(TRASH_LINK_LOCATOR);
     private final Element draftLink = new Element(DRAFT_LINK_LOCATOR);
     private final Element deleteLink = new Element(DELETE_EMAIL_LOCATOR);
-
-    public MainPage() {
-        inboxLink.waitForAppear();
-    }
 
     public String getUsernameTitle() {
         String message = userName.getText();
@@ -82,9 +80,9 @@ public class MainPage {
     }
 
     public void markMessage(int index) {
-        Element locator = new Element(makeMessageLocator(CONCRETE_MAIL_CHECKBOX_LOCATOR_PATTERN, index));
-        locator.waitForClickable();
-        locator.click();
+        By locator = makeMessageLocator(CONCRETE_MAIL_CHECKBOX_LOCATOR_PATTERN, index);
+        Element target = new Element(locator);
+        target.waitAndClick();
     }
 
     public Message getMessage(int index) {
@@ -103,8 +101,8 @@ public class MainPage {
 
     private void clickMessage(int index) {
         By locator = makeMessageLocator(CONCRETE_MESSAGE_LOCATOR_PATTERN, index);
-        WebElement target = Browser.getBrowser().getVisibleWebElement(locator);
-        target.click();
+        Element target = new Element(locator);
+        target.waitAndClick();
     }
 
     public List<String> getListOfAttaches() {

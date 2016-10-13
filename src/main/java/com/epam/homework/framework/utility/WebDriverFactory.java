@@ -6,7 +6,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
@@ -23,7 +22,7 @@ public final class WebDriverFactory {
     }
 
     public static WebDriver getInstance() {
-        driver = getChromeDriver();
+        driver = getMozillaDriver();
         return driver;
     }
 
