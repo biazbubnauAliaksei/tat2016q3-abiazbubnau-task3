@@ -5,10 +5,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.internal.WrapsDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static com.epam.homework.product.enums.DriverTimeouts.EXPLICIT_WAIT;
+
 import java.util.List;
 
 public final class Browser implements WrapsDriver {
@@ -66,28 +68,29 @@ public final class Browser implements WrapsDriver {
     }
 
     public void waitForElementIsPresent(By by) {
-        WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT.getValue());
-        wait.until(ExpectedConditions.presenceOfElementLocated(by));
+        ExpectedCondition<WebElement> condition = ExpectedConditions.presenceOfElementLocated(by);
+        waitByRequiredCondition(condition);
     }
 
     public void waitForElementIsVisible(By by) {
-        WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT.getValue());
-        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-    }
-
-    public void waitForElementIsNotVisible(By by) {
-        WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT.getValue());
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
+        ExpectedCondition<WebElement> condition = ExpectedConditions.visibilityOfElementLocated(by);
+        waitByRequiredCondition(condition);
     }
 
     public void waitForElementIsClickable(By by) {
-        WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT.getValue());
-        wait.until(ExpectedConditions.elementToBeClickable(by));
+        ExpectedCondition<WebElement> conditions = ExpectedConditions.elementToBeClickable(by);
+        waitByRequiredCondition(conditions);
     }
 
     public void waitForAlertIsPresent() {
         WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT.getValue());
         wait.until(ExpectedConditions.alertIsPresent());
+    }
+
+    private void waitByRequiredCondition(ExpectedCondition<WebElement> conditions) {
+        WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT.getValue());
+        wait.until(conditions);
+
     }
 
     public void clickElement(By by) {

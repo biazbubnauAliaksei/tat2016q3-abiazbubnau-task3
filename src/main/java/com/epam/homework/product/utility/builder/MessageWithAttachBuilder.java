@@ -1,6 +1,6 @@
-package com.epam.homework.product.utility.builders;
+package com.epam.homework.product.utility.builder;
 
-import com.epam.homework.product.beans.MessageWithAttach;
+import com.epam.homework.product.bean.MessageWithAttach;
 
 import java.nio.file.Path;
 import java.util.List;

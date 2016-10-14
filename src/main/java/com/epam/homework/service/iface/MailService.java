@@ -1,7 +1,7 @@
 package com.epam.homework.service.iface;
 
-import com.epam.homework.product.beans.Message;
-import com.epam.homework.product.beans.MessageWithAttach;
+import com.epam.homework.product.bean.Message;
+import com.epam.homework.product.bean.MessageWithAttach;
 
 import java.nio.file.Path;
 import java.util.List;

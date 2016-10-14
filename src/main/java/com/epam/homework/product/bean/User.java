@@ -1,4 +1,4 @@
-package com.epam.homework.product.beans;
+package com.epam.homework.product.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

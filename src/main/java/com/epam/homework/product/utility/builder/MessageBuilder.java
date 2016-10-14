@@ -1,6 +1,6 @@
-package com.epam.homework.product.utility.builders;
+package com.epam.homework.product.utility.builder;
 
-import com.epam.homework.product.beans.Message;
+import com.epam.homework.product.bean.Message;
 
 public class MessageBuilder {
 

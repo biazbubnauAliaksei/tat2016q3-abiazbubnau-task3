@@ -1,19 +1,20 @@
 package com.epam.homework.service.impl;
 
 import com.epam.homework.framework.browser.Browser;
-import com.epam.homework.product.beans.User;
-import com.epam.homework.product.pages.ErrorLoginPage;
-import com.epam.homework.product.utility.constants.Constants;
+import com.epam.homework.product.bean.User;
+import com.epam.homework.product.page.ErrorLoginPage;
+import com.epam.homework.product.utility.constant.Constants;
 import com.epam.homework.service.exception.AuthorizationException;
 import com.epam.homework.service.iface.LoginService;
-import com.epam.homework.product.pages.LoginPage;
-import com.epam.homework.product.pages.MainPage;
+import com.epam.homework.product.page.LoginPage;
+import com.epam.homework.product.page.MainPage;
 
 public class LoginServiceImpl implements LoginService {
+    private static final String MAILRU_URL = "https://mail.ru";
 
     @Override
     public void login(User user) {
-        Browser.getBrowser().open(Constants.MAILRU_URL);
+        Browser.getBrowser().open(MAILRU_URL);
         new LoginPage().typeLogin(user.getEmail())
                 .typePassword(user.getPassword())
                 .submitLogin();

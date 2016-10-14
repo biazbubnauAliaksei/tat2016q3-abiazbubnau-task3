@@ -1,7 +1,7 @@
-package com.epam.homework.product.utility.factories;
+package com.epam.homework.product.utility.factory;
 
-import com.epam.homework.product.beans.Message;
-import com.epam.homework.product.utility.constants.Constants;
+import com.epam.homework.product.bean.Message;
+import com.epam.homework.product.utility.constant.Constants;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;

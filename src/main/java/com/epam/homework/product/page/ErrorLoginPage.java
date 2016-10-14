@@ -1,4 +1,4 @@
-package com.epam.homework.product.pages;
+package com.epam.homework.product.page;
 
 import com.epam.homework.framework.element.Element;
 import org.openqa.selenium.By;

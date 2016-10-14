@@ -1,6 +1,6 @@
-package com.epam.homework.product.utility.builders;
+package com.epam.homework.product.utility.builder;
 
-import com.epam.homework.product.beans.User;
+import com.epam.homework.product.bean.User;
 
 public class UserBuilder {
 

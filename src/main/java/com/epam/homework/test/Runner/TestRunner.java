@@ -10,7 +10,6 @@ public class TestRunner {
 
     public static void main(String[] args) {
         TestNG testNG = new TestNG();
-//        testNG.addListener(TestListner.class);
         List<String> files = Arrays.asList(SUIT_PATH + COMMON_TESTS, SUIT_PATH);
         testNG.setTestSuites(files);
         testNG.run();

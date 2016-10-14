@@ -1,13 +1,13 @@
 package com.epam.homework.service.impl;
 
-import com.epam.homework.product.beans.Message;
-import com.epam.homework.product.beans.MessageWithAttach;
-import com.epam.homework.product.utility.builders.MessageBuilder;
-import com.epam.homework.product.utility.constants.Constants;
+import com.epam.homework.product.bean.Message;
+import com.epam.homework.product.bean.MessageWithAttach;
+import com.epam.homework.product.utility.builder.MessageBuilder;
+import com.epam.homework.product.utility.constant.Constants;
 import com.epam.homework.service.exception.MessageSentException;
 import com.epam.homework.service.iface.MailService;
-import com.epam.homework.product.pages.ComposePage;
-import com.epam.homework.product.pages.MainPage;
+import com.epam.homework.product.page.ComposePage;
+import com.epam.homework.product.page.MainPage;
 
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
@@ -16,6 +16,7 @@ import java.util.List;
 
 public class MailServiceImpl implements MailService {
     private static final int INDEX_1 = 1;
+    private static final String EMPTY_SUBJECT = "<Без темы>";
 
     @Override
     public void sendMessage(Message message) {
@@ -62,7 +63,7 @@ public class MailServiceImpl implements MailService {
         return isMessageInInbox(message) && isMessageInSent(message);
     }
 
-    public void putInDraft() {
+    public void clickDraft() {
         MainPage mainPage = new MainPage();
         mainPage.clickCompose();
         new ComposePage().clickSave();
@@ -79,33 +80,34 @@ public class MailServiceImpl implements MailService {
     public boolean isAllFilesAttached(List<Path> attaches) {
         MainPage mainPage = new MainPage();
         mainPage.clickInbox();
-        mainPage.getMessage(INDEX_1);
+        mainPage.getMessageByIndex(INDEX_1);
         return isLastMessageHasTargetAttaches(attaches);
     }
 
     public boolean isMessageInTrash(Message message) {
         new MainPage().clickTrash();
-        return isLastMessageTarget(message);
+        return isMessageInListOfPage(message);
     }
 
     private boolean isMessageInInbox(Message message) {
         new MainPage().clickInbox();
-        return isLastMessageTarget(message);
+        return isMessageInListOfPage(message);
     }
 
     private boolean isMessageInSent(Message message) {
         new MainPage().clickSent();
-        return isLastMessageTarget(message);
+        return isMessageInListOfPage(message);
     }
 
-    private boolean isLastMessageTarget(Message message) {
-        Message target = new MainPage().getMessage(INDEX_1);
+    private boolean isMessageInListOfPage(Message message) {
+        Message target = new MainPage().getMessageBySubject(message.getSubject());
         boolean emailEquality = message.getEmail().equals(target.getEmail())
                 || (message.getEmail().equals(EMPTY) && target.getEmail().equals(Constants.EMAIL_LOGIN));
         boolean subjectEquality = message.getSubject().equals(target.getSubject());
         boolean emptySubjectEquality = message.getSubject().equals(EMPTY)
-                && target.getSubject().equals(Constants.EMPTY_SUBJECT);
+                && target.getSubject().equals(EMPTY_SUBJECT);
         return emailEquality && (subjectEquality || emptySubjectEquality);
+
     }
 
     private boolean isLastMessageHasTargetAttaches(List<Path> targets) {
