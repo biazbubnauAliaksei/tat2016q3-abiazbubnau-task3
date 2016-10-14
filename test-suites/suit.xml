@@ -9,8 +9,9 @@
         </groups>
         <classes>
             <class name="com.epam.homework.test.CorrectLoginTest"/>
-            <class name="com.epam.homework.test.SendEmailTest"/>
-            <class name="com.epam.homework.test.MailBoxOperationsTest"/>
+            <class name="com.epam.homework.test.IncorrectLoginTest"/>
+            <!--<class name="com.epam.homework.test.SendEmailTest"/>-->
+            <!--<class name="com.epam.homework.test.MailBoxOperationsTest"/>-->
         </classes>
     </test>
 </suite>
