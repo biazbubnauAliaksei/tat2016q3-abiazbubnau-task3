@@ -54,6 +54,7 @@ public class MessageWithAttachBuilder {
         }
         return message;
     }
+
     private List<Path> fillPathList(int number) {
         List<Path> attaches = new ArrayList<>(number);
         for (int i = 1; i <= number; i++) {

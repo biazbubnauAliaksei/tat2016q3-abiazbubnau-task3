@@ -131,7 +131,7 @@
             <property name="methodMaximum" value="30"/>
         </module>
         <module name="NPathComplexity">
-            <property name="max" value="10"/>
+            <property name="max" value="16"/>
         </module>
 
         <!-- Miscellaneous -->
