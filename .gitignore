@@ -2,6 +2,7 @@
 *.iml
 idea/
 target/
+test-output/
 .project
 *idea*
 *.eml

@@ -27,7 +27,7 @@ public class MailBoxOperationsTest extends BaseLoginTest {
     }
 
     @Test(dependsOnMethods = "messagePutsInTrash",
-            description = "Message should be desappeared from 'Trash' folder")
+            description = "Message should be disappeared from 'Trash' folder")
     public void deleteMessageFromTrash() {
         service.deleteFromDraft();
         assertFalse("Message could not be in trash folder", service.isMessageInTrash(message));

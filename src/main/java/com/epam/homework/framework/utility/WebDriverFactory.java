@@ -3,6 +3,8 @@ package com.epam.homework.framework.utility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -27,6 +29,10 @@ public final class WebDriverFactory {
     }
 
     private static WebDriver getMozillaDriver() {
+        FirefoxProfile profile = new FirefoxProfile();
+        profile.setPreference("intl.accept_languages", "en");
+        DesiredCapabilities cap = DesiredCapabilities.firefox();
+        cap.setCapability(FirefoxDriver.PROFILE, profile.toString());
         try {
             driver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), DesiredCapabilities.firefox());
         } catch (MalformedURLException e) {
@@ -51,10 +57,12 @@ public final class WebDriverFactory {
 
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption(prefs, chromePrefs);
+        options.addArguments("--lang=en");
 
         DesiredCapabilities cap = DesiredCapabilities.chrome();
         cap.setCapability(ChromeOptions.CAPABILITY, options);
         cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+
         driver = new ChromeDriver(cap);
         configureDriver();
         return driver;
