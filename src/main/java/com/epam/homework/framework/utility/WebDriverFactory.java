@@ -1,5 +1,7 @@
 package com.epam.homework.framework.utility;
 
+import com.epam.homework.test.runner.utility.CliUtility;
+import com.epam.homework.test.runner.utility.TypeOfBrowser;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -8,6 +10,7 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
@@ -18,13 +21,17 @@ import static com.epam.homework.product.enums.DriverTimeouts.PAGE_LOAD;
 public final class WebDriverFactory {
     private static volatile WebDriver driver;
     private static final String DOWNLOADS_PATH = "D:\\downloads";
-    private static final String PATH_TO_CHROME_DRIVER = "./src/main/resources/drivers/chromedriver.exe";
 
     private WebDriverFactory() {
     }
 
     public static WebDriver getInstance() {
-        driver = getMozillaDriver();
+        TypeOfBrowser target = CliUtility.getTypeOfBrowser();
+        if (target == TypeOfBrowser.CHROME) {
+            driver = getChromeDriver();
+        } else {
+            driver = getMozillaDriver();
+        }
         return driver;
     }
 
@@ -49,7 +56,7 @@ public final class WebDriverFactory {
         String downloadDefauldDirectory = "download.default_directory";
         String prefs = "prefs";
 
-        System.setProperty(chromeProperty, PATH_TO_CHROME_DRIVER);
+        System.setProperty(chromeProperty, CliUtility.getChromeDriverPath());
 
         HashMap<String, Object> chromePrefs = new HashMap<>();
         chromePrefs.put(defaultContentSettingsPopups, 0);

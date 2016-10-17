@@ -12,7 +12,7 @@ import java.util.List;
 public class MainPage {
     private static final By USERNAME_LOCATOR = By.xpath("//*[@id='PH_user-email']");
     private static final By NEW_MAIL_BUTTON_LOCATOR =
-            By.xpath("//div[@id='b-toolbar__left']//a[@data-name='compose']/span");
+            By.xpath("//a[@data-bem='b-toolbar__btn']/span");
     private static final By SENT_LINK_LOCATOR =
             By.xpath("//div[@data-mnemo='nav-folders']//a[@href='/messages/sent/']");
     private static final String CONCRETE_MESSAGE_LOCATOR_PATTERN =

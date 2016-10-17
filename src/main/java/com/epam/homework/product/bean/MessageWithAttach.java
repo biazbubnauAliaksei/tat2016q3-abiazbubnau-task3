@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -13,5 +14,5 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MessageWithAttach extends Message {
-    private List<Path> attaches;
+    private List<Path> attaches = new ArrayList<>();
 }

@@ -12,7 +12,7 @@ public class ComposePage {
     private static final By FIELD_SUBJECT_LOCATOR = By.xpath(".//input[@name='Subject']");
     private static final By FIELD_TEXT_LOCATOR = By.xpath(".//*[@id='tinymce']");
     private static final By FRAME_TEXT_LOCATOR = By.xpath("//iframe[contains(@id ,'composeEditor_ifr')]");
-    private static final By SEND_EMAIL_LOCATOR = By.xpath("//*[@id='b-toolbar__right']//div[@data-name='send']/span");
+    private static final By SEND_EMAIL_LOCATOR = By.xpath("//div[@data-name='send']/span");
     private static final By SAVE_EMAIL_LOCATOR = By.xpath("//div[@data-name='saveDraft']/span");
     private static final By ATTACH_FILE_INPUT_LOCATOR = By.xpath("//input[@type='file']");
     private static final By ATTACH_FILENAMES_CONTAINING_TABLE_LOCATOR =

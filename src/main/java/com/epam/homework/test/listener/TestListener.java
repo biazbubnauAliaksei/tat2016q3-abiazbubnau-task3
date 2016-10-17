@@ -7,22 +7,21 @@ import org.testng.TestListenerAdapter;
 public class TestListener extends TestListenerAdapter {
     @Override
     public void onTestStart(ITestResult result) {
-        Log.info(result.getName() + " starting...");
+        Log.info(result.getTestClass().getName() + " starting...");
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        Log.info(result.getName() + " skipped");
-
+        Log.info(result.getTestClass().getName() + " SKIPPED");
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        Log.info(result.getName() + " passed successful");
+        Log.info(result.getTestClass().getName() + " PASSED successful");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        Log.error(result.getName() + " failed!", new Throwable(result.getThrowable().getMessage()));
+        Log.error(result.getName() + " FAILED!", new Throwable(result.getThrowable().getMessage()));
     }
 }

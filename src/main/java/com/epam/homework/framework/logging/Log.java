@@ -3,7 +3,7 @@ package com.epam.homework.framework.logging;
 import org.apache.log4j.Logger;
 
 public class Log {
-    private static final Logger LOG = Logger.getLogger("com.epam.gomel.tat");
+    private static final Logger LOG = Logger.getLogger("com.epam.homework");
 
     public static void info(Object message) {
         LOG.info(message);
@@ -15,5 +15,9 @@ public class Log {
 
     public static void debug(Object message) {
         LOG.debug(message);
+    }
+
+    public static void warn(Object mesage) {
+        LOG.warn(mesage);
     }
 }
