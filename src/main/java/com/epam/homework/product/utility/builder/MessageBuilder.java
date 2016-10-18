@@ -2,8 +2,7 @@ package com.epam.homework.product.utility.builder;
 
 import com.epam.homework.product.bean.Message;
 import com.epam.homework.product.utility.factory.MessageFactory;
-
-import static org.apache.commons.lang3.ObjectUtils.NULL;
+import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class MessageBuilder {
 
@@ -27,13 +26,13 @@ public class MessageBuilder {
     public Message build() {
         Message letter = MessageFactory.createFullMessage();
 
-        if (message.getEmail().equals(NULL)) {
+        if (isEmpty(message.getEmail())) {
             email(letter.getEmail());
         }
-        if (message.getSubject().equals(NULL)) {
+        if (isEmpty(message.getSubject())) {
             subject(letter.getSubject());
         }
-        if (message.getBody().equals(NULL)) {
+        if (isEmpty(message.getBody())) {
             body(letter.getBody());
         }
         return message;

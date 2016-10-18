@@ -4,12 +4,12 @@ import com.epam.homework.product.bean.Message;
 import com.epam.homework.product.bean.MessageWithAttach;
 import com.epam.homework.product.utility.factory.MessageFactory;
 
-import static org.apache.commons.lang3.ObjectUtils.NULL;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class MessageWithAttachBuilder {
     private static final int INDEX_0 = 0;
@@ -41,13 +41,13 @@ public class MessageWithAttachBuilder {
     public MessageWithAttach build() {
         Message letter = MessageFactory.createFullMessage();
 
-        if (message.getEmail().equals(NULL)) {
+        if (isEmpty(message.getEmail())) {
             email(letter.getEmail());
         }
-        if (message.getSubject().equals(NULL)) {
+        if (isEmpty(message.getSubject())) {
             subject(letter.getSubject());
         }
-        if (message.getBody().equals(NULL)) {
+        if (isEmpty(message.getBody())) {
             body(letter.getBody());
         }
         if (message.getAttaches().size() == INDEX_0) {

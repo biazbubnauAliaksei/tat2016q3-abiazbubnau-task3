@@ -4,7 +4,6 @@ import com.epam.homework.framework.browser.Browser;
 import com.epam.homework.framework.element.Element;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-
 import java.nio.file.Path;
 
 public class ComposePage {
@@ -57,15 +56,10 @@ public class ComposePage {
     }
 
     public ComposePage attachFile(Path path) {
-        if (!attachFilenameContainingTable.isPresent()) {
-            attachFileInput.typeValue(path.toString());
-            attachFilenameContainingTable.waitForAppear();
-            return this;
-        } else {
-            attachFileInput.typeValue(path.toString());
-            attachFilenameContainingTable.waitForAppear();
-            return this;
-        }
+        attachFileInput.waitForAppear();
+        attachFileInput.typeValue(path.toString());
+        attachFilenameContainingTable.waitForAppear();
+        return this;
     }
 
     public String handleIncorrectMessageAlert() {

@@ -1,6 +1,6 @@
 package com.epam.homework.framework.utility;
 
-import com.epam.homework.test.runner.utility.CliUtility;
+import com.epam.homework.test.runner.utility.CLargsHandler;
 import com.epam.homework.test.runner.utility.TypeOfBrowser;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,8 +11,6 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 
 import static com.epam.homework.product.enums.DriverTimeouts.IMPLICIT_WAIT;
@@ -26,8 +24,8 @@ public final class WebDriverFactory {
     }
 
     public static WebDriver getInstance() {
-        TypeOfBrowser target = CliUtility.getTypeOfBrowser();
-        if (target == TypeOfBrowser.CHROME) {
+        TypeOfBrowser typeOfBrowser = CLargsHandler.getBrowserType();
+        if (typeOfBrowser == TypeOfBrowser.CHROME) {
             driver = getChromeDriver();
         } else {
             driver = getMozillaDriver();
@@ -40,11 +38,7 @@ public final class WebDriverFactory {
         profile.setPreference("intl.accept_languages", "en");
         DesiredCapabilities cap = DesiredCapabilities.firefox();
         cap.setCapability(FirefoxDriver.PROFILE, profile.toString());
-        try {
-            driver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), DesiredCapabilities.firefox());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        driver = new RemoteWebDriver(CLargsHandler.getWebDriverURL(), DesiredCapabilities.firefox());
         configureDriver();
         driver.manage().window().maximize();
         return driver;
@@ -56,7 +50,7 @@ public final class WebDriverFactory {
         String downloadDefauldDirectory = "download.default_directory";
         String prefs = "prefs";
 
-        System.setProperty(chromeProperty, CliUtility.getChromeDriverPath());
+        System.setProperty(chromeProperty, CLargsHandler.getChromeDriverPath());
 
         HashMap<String, Object> chromePrefs = new HashMap<>();
         chromePrefs.put(defaultContentSettingsPopups, 0);

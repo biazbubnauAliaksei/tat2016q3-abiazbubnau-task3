@@ -1,20 +1,24 @@
 package com.epam.homework.test.runner;
 
-import com.epam.homework.test.runner.utility.CliUtility;
+import com.epam.homework.test.runner.utility.CLargsHandler;
+import com.epam.homework.test.runner.utility.CLargsSetting;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
 import org.testng.TestNG;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class TestRunner {
-    static final String SUIT_PATH = "./test-suites/";
-    static final String COMMON_TESTS = "login-suite.xml";
+
 
     public static void main(String[] args) {
         TestNG testNG = new TestNG();
-        List<String> files = Arrays.asList(SUIT_PATH + COMMON_TESTS);
-        new CliUtility(args).parse();
-        testNG.setTestSuites(files);
+        CLargsSetting settings = CLargsSetting.getInstance();
+        CmdLineParser parser = new CmdLineParser(settings);
+        try {
+            parser.parseArgument(args);
+        } catch (CmdLineException e) {
+            e.printStackTrace();
+        }
+        testNG.setTestSuites(CLargsHandler.getTestSuitesList());
         testNG.run();
     }
 }

@@ -107,7 +107,6 @@ public class MailServiceImpl implements MailService {
         boolean emptySubjectEquality = message.getSubject().equals(EMPTY)
                 && target.getSubject().equals(EMPTY_SUBJECT);
         return emailEquality && (subjectEquality || emptySubjectEquality);
-
     }
 
     private boolean isLastMessageHasTargetAttaches(List<Path> targets) {
