@@ -1,4 +1,4 @@
-package com.epam.homework.test.listener;
+package com.epam.homework.framework.listener;
 
 import com.epam.homework.framework.logging.Log;
 import org.testng.ITestResult;

@@ -1,10 +1,12 @@
 package com.epam.homework.framework.browser;
 
+import com.epam.homework.framework.listener.WebDriverEventListener;
 import com.epam.homework.framework.utility.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.internal.WrapsDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -19,7 +21,9 @@ public final class Browser implements WrapsDriver {
     private WebDriver driver;
 
     private Browser() {
-        driver = WebDriverFactory.getInstance();
+        EventFiringWebDriver eventFiringDriver = new EventFiringWebDriver(WebDriverFactory.getInstance());
+        eventFiringDriver.register(WebDriverEventListener.create());
+        this.driver = eventFiringDriver;
     }
 
     public static synchronized Browser getBrowser() {

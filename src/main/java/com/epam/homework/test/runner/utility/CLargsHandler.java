@@ -1,6 +1,5 @@
 package com.epam.homework.test.runner.utility;
 
-import static org.apache.commons.lang3.ObjectUtils.Null;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 import java.net.MalformedURLException;
@@ -47,7 +46,8 @@ public class CLargsHandler {
     public static TypeOfBrowser getBrowserType() {
         if (setting.typeOfBrowser == TypeOfBrowser.CHROME) {
             return TypeOfBrowser.CHROME;
-        }  return TypeOfBrowser.FIREFOX;
+        }
+        return TypeOfBrowser.FIREFOX;
     }
 
     public static URL getWebDriverURL() {

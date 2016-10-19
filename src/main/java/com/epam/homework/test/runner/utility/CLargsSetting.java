@@ -30,7 +30,8 @@ public class CLargsSetting {
     public static CLargsSetting getInstance() {
         if (instance == null) {
             instance = new CLargsSetting();
-        } return instance;
+        }
+        return instance;
     }
 
     public static class BrowserTypeConverter {

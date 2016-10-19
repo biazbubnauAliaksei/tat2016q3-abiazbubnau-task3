@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.apache.commons.lang3.StringUtils.isEmpty;
+
 public class MainPage {
     private static final By USERNAME_LOCATOR = By.xpath("//*[@id='PH_user-email']");
     private static final By NEW_MAIL_BUTTON_LOCATOR =
@@ -36,6 +38,7 @@ public class MainPage {
     private static final By ATTACHED_FILENAME_CONTAINING_ELEMENTS_LOCATOR =
             By.xpath("//*[@id='b-letter']//a[@data-name='toCloud']");
     private static final String ATTRIBUTE_DATA_FILENAME = "data-filename";
+    private static final String EMPTY_SUBJECT = "<Без темы>";
     private static final By SUBJECT_HEADERS_IN_LIST_LOCATOR =
             By.xpath("//div[contains(@class, 'b-datalist__item__subj')]");
 
@@ -53,7 +56,7 @@ public class MainPage {
     }
 
     public ComposePage clickCompose() {
-        newMailButton.waitAndClick();
+        newMailButton.click();
         return new ComposePage();
     }
 
@@ -88,14 +91,6 @@ public class MainPage {
         target.waitAndClick();
     }
 
-    public Message getMessageByIndex(int index) {
-        clickMessage(index);
-        String email = new Element(MAIL_EMAIL_LOCATOR).getWrappedWebElement().getAttribute(EMAIL_ATTR);
-        String subject = new Element(MAIL_SUBJECT_LOCATOR).getText();
-        String body = new Element(MAIL_TEXT_LOCATOR).getText();
-        return new Message(email, subject, body);
-    }
-
     public Message getMessageBySubject(String topic) {
         searchAndClickOnMessage(topic);
         String email = new Element(MAIL_EMAIL_LOCATOR).getWrappedWebElement().getAttribute(EMAIL_ATTR);
@@ -120,7 +115,7 @@ public class MainPage {
         List<WebElement> elements = Browser.getBrowser().findElements(SUBJECT_HEADERS_IN_LIST_LOCATOR);
         for (WebElement element : elements) {
             String target = element.getText().trim();
-            if (target.contains(subject)) {
+            if ((target.contains(subject)) || (target.equals(EMPTY_SUBJECT) && isEmpty(subject))) {
                 element.click();
                 break;
             }

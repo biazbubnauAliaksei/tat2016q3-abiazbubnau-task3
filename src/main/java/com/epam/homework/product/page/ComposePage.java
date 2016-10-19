@@ -56,7 +56,6 @@ public class ComposePage {
     }
 
     public ComposePage attachFile(Path path) {
-        attachFileInput.waitForAppear();
         attachFileInput.typeValue(path.toString());
         attachFilenameContainingTable.waitForAppear();
         return this;

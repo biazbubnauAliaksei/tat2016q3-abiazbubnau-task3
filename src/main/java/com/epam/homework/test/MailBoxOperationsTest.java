@@ -1,8 +1,7 @@
 package com.epam.homework.test;
 
 import com.epam.homework.product.bean.Message;
-import com.epam.homework.product.utility.factory.MessageFactory;
-import com.epam.homework.service.impl.MailServiceImpl;
+import com.epam.homework.framework.service.impl.MailServiceImpl;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -20,16 +19,15 @@ public class MailBoxOperationsTest extends BaseLoginTest {
 
     @Test(description = "Message could be puts in folder 'Trash'.")
     public void messagePutsInTrash() {
-        message = MessageFactory.createEmptyMessage();
-        service.clickDraft();
-        service.deleteFromDraft();
+        service.createAndSaveEmptyMessage();
+        service.deleteLastMessageFromDraft();
         assertTrue("Message should be in trash.", service.isMessageInTrash(message));
     }
 
     @Test(dependsOnMethods = "messagePutsInTrash",
             description = "Message should be disappeared from 'Trash' folder")
     public void deleteMessageFromTrash() {
-        service.deleteFromDraft();
+        service.deleteLastMessageFromDraft();
         assertFalse("Message could not be in trash folder", service.isMessageInTrash(message));
     }
 }

@@ -1,4 +1,4 @@
-package com.epam.homework.service.iface;
+package com.epam.homework.framework.service.iface;
 
 import com.epam.homework.product.bean.Message;
 import com.epam.homework.product.bean.MessageWithAttach;
@@ -16,6 +16,5 @@ public interface MailService {
 
     boolean isMessageSent(Message message);
 
-    boolean isAllFilesAttached(List<Path> attaches);
-
+    boolean isAllFilesAttached(List<Path> attaches, String subject);
 }

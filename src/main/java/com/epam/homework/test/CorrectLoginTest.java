@@ -1,8 +1,8 @@
 package com.epam.homework.test;
 
 import com.epam.homework.product.utility.factory.UserFactory;
-import com.epam.homework.service.iface.LoginService;
-import com.epam.homework.service.impl.LoginServiceImpl;
+import com.epam.homework.framework.service.iface.LoginService;
+import com.epam.homework.framework.service.impl.LoginServiceImpl;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertTrue;

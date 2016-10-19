@@ -5,10 +5,10 @@ import com.epam.homework.product.bean.MessageWithAttach;
 import com.epam.homework.product.utility.builder.MessageBuilder;
 import com.epam.homework.product.utility.builder.MessageWithAttachBuilder;
 import com.epam.homework.product.utility.constant.Constants;
-import com.epam.homework.service.exception.MessageSentException;
+import com.epam.homework.framework.service.exception.MessageSentException;
 import com.epam.homework.product.utility.factory.MessageFactory;
-import com.epam.homework.service.iface.MailService;
-import com.epam.homework.service.impl.MailServiceImpl;
+import com.epam.homework.framework.service.iface.MailService;
+import com.epam.homework.framework.service.impl.MailServiceImpl;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -57,6 +57,6 @@ public class SendEmailTest extends BaseLoginTest {
         MessageWithAttach message = new MessageWithAttachBuilder().build();
         service.sendMessage(message);
         assertTrue("All filenames of attached files should be presents remotely",
-                service.isAllFilesAttached(message.getAttaches()));
+                service.isAllFilesAttached(message.getAttaches(), message.getSubject()));
     }
 }

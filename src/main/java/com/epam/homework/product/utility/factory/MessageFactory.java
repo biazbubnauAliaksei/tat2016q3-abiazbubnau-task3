@@ -8,12 +8,13 @@ import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 public class MessageFactory {
+    private static final int CONTENT_INDEX = 10;
 
     public static Message createFullMessage() {
         Message message = new Message();
         message.setEmail(Constants.EMAIL_LOGIN);
-        message.setSubject(randomAlphabetic(Constants.CONTENT_INDEX));
-        message.setBody(randomAlphanumeric(Constants.CONTENT_INDEX));
+        message.setSubject(randomAlphabetic(CONTENT_INDEX));
+        message.setBody(randomAlphanumeric(CONTENT_INDEX));
         return message;
     }
 

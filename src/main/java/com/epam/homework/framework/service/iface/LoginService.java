@@ -1,4 +1,4 @@
-package com.epam.homework.service.iface;
+package com.epam.homework.framework.service.iface;
 
 import com.epam.homework.product.bean.User;
 

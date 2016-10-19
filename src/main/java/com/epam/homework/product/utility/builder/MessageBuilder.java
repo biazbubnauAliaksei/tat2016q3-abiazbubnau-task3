@@ -2,6 +2,7 @@ package com.epam.homework.product.utility.builder;
 
 import com.epam.homework.product.bean.Message;
 import com.epam.homework.product.utility.factory.MessageFactory;
+
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class MessageBuilder {
