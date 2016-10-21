@@ -34,7 +34,7 @@
     </reporting>
 
     <build>
-        <finalName>demo</finalName>
+        <finalName>task3-mailrutest</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -101,6 +101,47 @@
                 <configuration>
                     <configLocation>config/checkstyle/checkstyle.xml</configLocation>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.kohsuke.args4j</groupId>
+                <artifactId>args4j-maven-plugin</artifactId>
+                <version>2.32</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>usage</goal>
+                        </goals>
+                        <configuration>
+                            <sourceFiles>
+                                <sourceFile>com.epam.homework.test.runner.TestRunner.java</sourceFile>
+                                <sourceFile>com.epam.homework.test.runner.utility.CLargsSetting.java</sourceFile>
+                            </sourceFiles>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.epam.homework.test.runner.TestRunner</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>assemby</id>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
