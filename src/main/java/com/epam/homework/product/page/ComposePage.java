@@ -18,6 +18,8 @@ public class ComposePage {
             By.xpath(".//div[contains(@class,'list upload')]//table");
     private static final By EMPTY_MAIL_SEND_CONFIRM_POPUP_BUTTON_LOCATOR =
             By.xpath(".//*[@id='MailRuConfirm']//div[contains(@class, 'is-compose-empty_in')]//button[@type='submit']");
+    private static final By MESSAGE_SENT_TITLE_LOCATOR =
+            By.xpath("//div[contains(@class, 'message-sent__title')]");
 
     private final Element fieldAddress = new Element(FIELD_ADDRESS_LOCATOR);
     private final Element fieldSubject = new Element(FIELD_SUBJECT_LOCATOR);
@@ -27,6 +29,7 @@ public class ComposePage {
     private final Element attachFileInput = new Element(ATTACH_FILE_INPUT_LOCATOR);
     private final Element attachFilenameContainingTable = new Element(ATTACH_FILENAMES_CONTAINING_TABLE_LOCATOR);
     private final Element emptyMailSendConfirmButton = new Element(EMPTY_MAIL_SEND_CONFIRM_POPUP_BUTTON_LOCATOR);
+    private final Element messageSentTitle = new Element(MESSAGE_SENT_TITLE_LOCATOR);
 
     public ComposePage typeEmail(String email) {
         fieldAddress.typeValue(email);
@@ -48,6 +51,7 @@ public class ComposePage {
 
     public void sendMessage() {
         sendMessageButton.click();
+        messageSentTitle.waitForAppear();
     }
 
     public MainPage clickSave() {

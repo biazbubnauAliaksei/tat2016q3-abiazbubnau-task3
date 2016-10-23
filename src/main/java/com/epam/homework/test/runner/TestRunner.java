@@ -7,8 +7,6 @@ import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.testng.TestNG;
 
-import java.util.Arrays;
-
 public class TestRunner {
 
     public static void main(String[] args) {
@@ -18,11 +16,10 @@ public class TestRunner {
         try {
             parser.parseArgument(args);
         } catch (CmdLineException e) {
-            e.printStackTrace();
+            System.err.println("Incorrect argument(s)!");
         }
         testNG.addListener(new TestListener());
         testNG.setTestSuites(CLargsHandler.getTestSuitesList());
-        testNG.setTestSuites(Arrays.asList("./test-suites/login-suite.xml"));
         testNG.run();
     }
 }

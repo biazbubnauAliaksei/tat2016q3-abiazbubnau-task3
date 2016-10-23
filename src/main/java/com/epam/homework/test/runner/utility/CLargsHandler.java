@@ -12,7 +12,8 @@ public class CLargsHandler {
     private static final int DEFAULT_REMOTE_WEB_DRIVER_PORT = 4444;
     private static final int INDEX_0 = 0;
     private static final String URL_PATH_TAIL = "/wd/hub";
-    private static final String DEFAULT_HOST_ADDRESS_PATTERN = "http://127.0.0.1:%d";
+    private static final String DEFAULT_HOST_ADDRESS = "http://127.0.0.1";
+    private static final String DELIMETER = ":";
 
     private static CLargsSetting setting = CLargsSetting.getInstance();
 
@@ -52,12 +53,17 @@ public class CLargsHandler {
 
     public static URL getWebDriverURL() {
         String target = setting.host;
+        StringBuilder builder = new StringBuilder();
         URL result = null;
         if (isEmpty(target)) {
-            target = String.format(DEFAULT_HOST_ADDRESS_PATTERN, getRemoteWebDriverPort());
+            builder.append(DEFAULT_HOST_ADDRESS)
+                    .append(DELIMETER)
+                    .append(getRemoteWebDriverPort())
+                    .append(URL_PATH_TAIL);
+            target = builder.toString();
         }
         try {
-            result = new URL(target + URL_PATH_TAIL);
+            result = new URL(target + DELIMETER + getRemoteWebDriverPort() + URL_PATH_TAIL);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

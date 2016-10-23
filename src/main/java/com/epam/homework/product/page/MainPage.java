@@ -112,6 +112,7 @@ public class MainPage {
     }
 
     public void searchAndClickOnMessage(String subject) {
+        Browser.getBrowser().waitForElementIsVisible(SUBJECT_HEADERS_IN_LIST_LOCATOR);
         List<WebElement> elements = Browser.getBrowser().findElements(SUBJECT_HEADERS_IN_LIST_LOCATOR);
         for (WebElement element : elements) {
             String target = element.getText().trim();

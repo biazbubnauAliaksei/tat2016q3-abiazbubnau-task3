@@ -69,7 +69,7 @@ public class MailServiceImpl implements MailService {
     @Override
     public boolean isMessageSent(Message message) {
         Log.info("Check was message sent.\nEmail: " + message.getEmail() + " Subject: " + message.getSubject());
-        return isMessageInInbox(message) && isMessageInSent(message);
+        return isMessageInInbox(message);
     }
 
     public void createAndSaveEmptyMessage() {

@@ -12,8 +12,9 @@ import com.epam.homework.framework.service.impl.MailServiceImpl;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.junit.Assert.assertTrue;
+
 import static org.apache.commons.lang3.RandomStringUtils.*;
+import static org.testng.AssertJUnit.assertTrue;
 
 public class SendEmailTest extends BaseLoginTest {
 
